@@ -1,16 +1,17 @@
 <template>
   <v-app id="login">
-    <v-content>
+    <v-main>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <h1 class="text-center white--text">LOGIN</h1>
             <v-form
               ref="form"
               v-model="valid"
               lazy-validation
               @submit.prevent="do_login"
             >
-              <span style="color: black; font-size: 18px">E-mail</span>
+              <span style="color: white; font-size: 18px">E-mail</span>
               <v-text-field
                 label="Email"
                 v-model="usuario.email"
@@ -21,7 +22,7 @@
                 dense
                 background-color="white"
               ></v-text-field>
-              <span style="color: black; font-size: 18px">Senha</span>
+              <span style="color: white; font-size: 18px">Senha</span>
               <v-text-field
                 label="Senha"
                 v-model="usuario.senha"
@@ -36,16 +37,10 @@
                 :type="show1 ? 'text' : 'password'"
                 @click:append="show1 = !show1"
               ></v-text-field>
-              <div
-                style="
-                  font-size: 18px;
-                  color: black;
-                  text-align: center;
-                "
-              >
+              <div style="font-size: 18px; color: black; text-align: center">
                 <v-btn
                   id="botao-login"
-                  color="#4F4F4F"
+                  color="#415a77"
                   type="submit"
                   class="white--text"
                   :disabled="!valid"
@@ -54,26 +49,10 @@
                 >
               </div>
             </v-form>
-            <div
-              style="
-                margin-top: 50px;
-                font-size: 18px;
-                color: black;
-                text-align: center;
-              "
-            >
-              Ainda não tem uma conta? Se cadastre no sistema
-              <v-btn
-                color="#4F4F4F"
-                class="white--text"
-                style="margin-top: 20px"
-                >Criar Conta</v-btn
-              >
-            </div>
           </v-flex>
         </v-layout>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -96,14 +75,17 @@ export default {
     ],
     regra_senha: [(v) => !!v || 'A senha é obrigatória'],
   }),
+  methods: {
+    // Método que valida se os campos estão preenchidos, se não estiverem ele bloqueia o botão CADASTRAR
+    validate() {
+      this.$refs.form.validate()
+    },
+  },
 }
 </script>
 
 <style>
 #login {
-  background-color: #a2d6f9;
-}
-#card-login {
-  background-color: white;
+  background-color: #0d1b2a;
 }
 </style>
