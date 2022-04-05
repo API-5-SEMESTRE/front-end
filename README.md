@@ -1,72 +1,93 @@
-<<<<<<< HEAD
-# front-end
-=======
-# sas-front
+<p align="center"> <img src="./Documentação/Fotos-Readme/logo.png" alt="Sas" class="center" width=600/> </p>
 
-## Build Setup
+O projeto a ser desenvolvido vai ser um sistema para buscar novas receitas através da criação de novas
+segmentações de clientes para a empresa parceira [SPC](https://www.spcbrasil.org.br/).
+
+<h2 align="center">🚧  Sistema 🚀 Em construção...  🚧</h2>
+
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/API-5-SEMESTRE/front-end?color=%2304D361">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/API-5-SEMESTRE/front-end">
+
+  <a href="https://github.com/tgmarinho/README-ecoleta/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/API-5-SEMESTRE/front-end">
+  </a>
+    
+   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+ 
+   <a href="https://github.com/API-5-SEMESTRE/front-end/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/API-5-SEMESTRE/front-end?style=social">
+  </a>
+</p>
+
+<h2>Tópicos 🏁</h2>
+
+<p>
+ <a href="#projeto-">Projeto</a> •
+ <a href="#desafio-">Desafio</a> • 
+ <a href="#entregas-">Entregas</a> •
+ <a href="#Rodando-o-Sistema-">Rodar o sistema</a> •
+ <a href="#tecnologias-">Tecnologias</a> •
+ <a href="#licença-">Licença</a> • 
+</p>
+
+<h2>Projeto 🖥</h2>
+
+Projeto realizado em parceria com a SPC que é organização de gestão e inteligência de dados que entrega soluções de crédito, cobrança, antifraude, marketing e certificação digital juntamente com a Faculdade de Tecnologia de São José dos Campos Professor Jessen Vidal.
+
+<h2>Desafio 📈</h2>
+
+Desafio proposto pela SPC - "Temos um novo desafio na área de vendas que é buscar novas receitas através da criação de novas segmentações de clientes. Para isso precisaremos da criação de novos modelos de dados e indicadores que suportarão as estratégias de vendas (contato com clientes e prospects observando as suas particularidades relacionadas a segmentos, verticais de atuação, consumo e potencial de consumo)."
+
+<h2>Entregas 💎</h2>
+
+O planejamento e o progresso durante as Sprints do projeto poderá ser visto em [Entregas](https://github.com/API-5-SEMESTRE/front-end/wiki).
+
+<h2>Rodando o Sistema 🚀</h2>
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com/) e [Vue.js](https://vuejs.org/).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/) ou [IntelliJ](https://www.jetbrains.com/pt-br/idea/).
+
+### 🎲 Rodando o Front-End
 
 ```bash
-# install dependencies
+# Clone este repositório (caso ainda não tenha clonado)
+$ git clone https://github.com/API-5-SEMESTRE/front-end
+
+# Ir para a pasta "front-end/sas-front" e rodar o camando a seguir no terminal para instalar as dependências do NPM
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Ainda na pasta "front-end/sas-front" rodar com o comando a seguir para rodar o Front-end
 $ npm run dev
 
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+# O Front-end está rodando, acesse o link do servidor do Vue.js
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+<h2>Tecnologias 🛠</h2>
 
-## Special Directories
+As seguintes ferramentas foram usadas na construção do projeto:
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+<a href="https://nuxtjs.org/">
+  <img alt="image" src="https://img.shields.io/badge/Nuxt.js-%23696969?style=for-the-badge&logo=Nuxt.js">
+</a>
+<a href="https://vuejs.org/">
+  <img alt="image" src="https://img.shields.io/badge/Vue.js-%23696969?style=for-the-badge&logo=vue.js">
+</a>
+<a href="https://git-scm.com/">
+  <img alt="image" src="https://img.shields.io/badge/Git-%23696969?style=for-the-badge&logo=Git">
+</a>
+<a href="https://nodejs.org/en/">
+  <img alt="image" src="https://img.shields.io/badge/Node.js-%23696969?style=for-the-badge&logo=Node.js">
+</a>
+<a href="https://www.npmjs.com/">
+  <img alt="image" src="https://img.shields.io/badge/NPM-%23696969?style=for-the-badge&logo=npm">
+</a>
 
-### `assets`
+<h2>Licença 📝</h2>
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+Este projeto esta sobe a licença [MIT](./LICENSE).
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
->>>>>>> 67140514cf7e5939ccf1f5e91a2c4f806b196dad
