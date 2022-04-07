@@ -42,7 +42,7 @@ Desafio proposto pela SPC - "Temos um novo desafio na área de vendas que é bus
 
 <h2>Entregas 💎</h2>
 
-O planejamento e o progresso durante as Sprints do projeto poderá ser visto em [Entregas](https://github.com/API-5-SEMESTRE/front-end/wiki).
+O planejamento e o progresso durante as Sprints do projeto poderá ser visto em [Entregas](https://github.com/API-5-SEMESTRE/front-end/wiki/Entregas).
 
 <h2>Rodando o Sistema 🚀</h2>
 
