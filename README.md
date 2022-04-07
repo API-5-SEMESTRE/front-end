@@ -1,4 +1,4 @@
-<p align="center"> <img src="./assets/imagens-readme/logo.jpeg" alt="Sas" class="center" width=300/> </p>
+<p align="center"> <img src="./Documentação/Fotos-Readme/logo.png" alt="Sas" class="center" width=600/> </p>
 
 O projeto a ser desenvolvido vai ser um sistema para buscar novas receitas através da criação de novas
 segmentações de clientes para a empresa parceira [SPC](https://www.spcbrasil.org.br/).
@@ -58,13 +58,13 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 # Clone este repositório (caso ainda não tenha clonado)
 $ git clone https://github.com/API-5-SEMESTRE/front-end
 
-# Ir para a pasta "front-end/sas-front" e rodar o camando a seguir no terminal para instalar as dependências do NPM
+# Rodar o camando a seguir no terminal para instalar as dependências do NPM
 $ npm install
 
-# Ainda na pasta "front-end/sas-front" rodar com o comando a seguir para rodar o Front-end
+# Rodar com o comando a seguir para rodar o Front-end
 $ npm run dev
 
-# O Front-end está rodando, acesse o link do servidor do Vue.js
+# O Front-end está rodando localmente, acesse o link do servidor do Nuxt.js
 ```
 
 <h2>Tecnologias 🛠</h2>
@@ -90,4 +90,3 @@ As seguintes ferramentas foram usadas na construção do projeto:
 <h2>Licença 📝</h2>
 
 Este projeto esta sobe a licença [MIT](./LICENSE).
-
