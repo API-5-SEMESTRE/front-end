@@ -1,4 +1,4 @@
-<p align="center"> <img src="./assets/imagens-readme/logo.jpeg" alt="Sas" class="center" width=600/> </p>
+<p align="center"> <img src="./assets/imagens-readme/logo.jpeg" alt="Sas" class="center" width=300/> </p>
 
 O projeto a ser desenvolvido vai ser um sistema para buscar novas receitas através da criação de novas
 segmentações de clientes para a empresa parceira [SPC](https://www.spcbrasil.org.br/).
