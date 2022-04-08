@@ -80,6 +80,9 @@
 <script>
 export default {
   name: 'upload-csv',
+  head: {
+    title: 'Upload CSV',
+  },
   data: () => ({
     IMPORT_URI: '/codelist/import',
     valid: true,
