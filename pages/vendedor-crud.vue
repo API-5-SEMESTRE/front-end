@@ -130,6 +130,9 @@
 <script>
 export default {
   name: 'vendedor-crud',
+  head: {
+    title: 'CRUD vendedor',
+  },
   data: () => ({
     dialog: false,
     dialogDelete: false,
