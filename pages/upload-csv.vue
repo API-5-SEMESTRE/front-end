@@ -17,34 +17,36 @@
                   <v-card-text>
                     <v-row class="mb-6" no-gutters>
                       <v-col>
-                        <v-file-input
-                          v-model="files"
-                          color="blue accent-4"
-                          counter
-                          label="Inserir o CSV"
-                          placeholder="Inserir o CSV"
-                          prepend-icon="mdi-paperclip"
-                          outlined
-                          :show-size="1000"
-                        >
-                          <template v-slot:selection="{ index, text }">
-                            <v-chip
-                              v-if="index < 2"
-                              color="blue accent-4"
-                              dark
-                              label
-                              small
-                            >
-                              {{ text }}
-                            </v-chip>
-                            <span
-                              v-else-if="index === 2"
-                              class="overline grey--text text--darken-3 mx-2"
-                            >
-                              +{{ files.length - 2 }} File(s)
-                            </span>
-                          </template>
-                        </v-file-input>
+                        <client-only>
+                          <v-file-input
+                            v-model="files"
+                            color="blue accent-4"
+                            counter
+                            label="Inserir o CSV"
+                            placeholder="Inserir o CSV"
+                            prepend-icon="mdi-paperclip"
+                            outlined
+                            :show-size="1000"
+                          >
+                            <template v-slot:selection="{ index, text }">
+                              <v-chip
+                                v-if="index < 2"
+                                color="blue accent-4"
+                                dark
+                                label
+                                small
+                              >
+                                {{ text }}
+                              </v-chip>
+                              <span
+                                v-else-if="index === 2"
+                                class="overline grey--text text--darken-3 mx-2"
+                              >
+                                +{{ files.length - 2 }} File(s)
+                              </span>
+                            </template>
+                          </v-file-input>
+                        </client-only>
                       </v-col>
                     </v-row>
                     <v-row>
