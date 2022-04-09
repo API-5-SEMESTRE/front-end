@@ -1,5 +1,5 @@
 <template>
-  <v-app id="vendedor-crud">
+  <v-app id="usuario-crud">
     <v-main>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -129,9 +129,9 @@
 
 <script>
 export default {
-  name: 'vendedor-crud',
+  name: 'usuario-crud',
   head: {
-    title: 'CRUD vendedor',
+    title: 'CRUD usuário',
   },
   data: () => ({
     dialog: false,
@@ -304,7 +304,7 @@ export default {
 </script>
 
 <style>
-#vendedor-crud {
+#usuario-crud {
   background-color: #0d1b2a;
 }
 </style>
