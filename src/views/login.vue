@@ -58,30 +58,30 @@
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
   data: () => ({
     usuario: {
-      email: '',
-      senha: '',
+      email: "",
+      senha: "",
     },
     // Criando a variavel pro icone de mostrar a senha
     show1: false,
     // Validando se os campos do formulario estão preenchidos e se são validos
     valid: true,
     regra_email: [
-      (v) => !!v || 'O e-mail é obrigatório',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail inválido',
+      (v) => !!v || "O e-mail é obrigatório",
+      (v) => /.+@.+\..+/.test(v) || "E-mail inválido",
       //(v) => /^[a-z0-9.]+@oracle.com$/.test(v) || "E-mail inválido",
     ],
-    regra_senha: [(v) => !!v || 'A senha é obrigatória'],
+    regra_senha: [(v) => !!v || "A senha é obrigatória"],
   }),
   methods: {
     // Método que valida se os campos estão preenchidos, se não estiverem ele bloqueia o botão CADASTRAR
     validate() {
-      this.$refs.form.validate()
+      this.$refs.form.validate();
     },
   },
-}
+};
 </script>
 
 <style>

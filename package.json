@@ -1,29 +1,33 @@
 {
   "name": "sas-front",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint:prettier": "prettier --check .",
-    "lint": "npm run lint:prettier",
-    "lintfix": "prettier --write --list-different ."
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
-    "core-js": "^3.19.3",
-    "nuxt": "^2.15.8",
+    "axios": "^0.26.1",
+    "core-js": "^3.8.3",
+    "sweetalert2": "^11.4.8",
     "vue": "^2.6.14",
-    "vue-server-renderer": "^2.6.14",
-    "vue-template-compiler": "^2.6.14",
-    "vuetify": "^2.6.1",
-    "webpack": "^4.46.0"
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.6.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.12.3",
-    "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.5.1"
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "sass": "~1.32.0",
+    "sass-loader": "^10.0.0",
+    "vue-cli-plugin-vuetify": "~2.4.8",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify-loader": "^1.7.0"
   }
 }

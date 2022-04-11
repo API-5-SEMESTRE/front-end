@@ -78,46 +78,48 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+import { http } from "../services/config";
 export default {
-  name: 'upload-csv',
+  name: "upload-csv",
   head: {
-    title: 'Upload CSV',
+    title: "Upload CSV",
   },
   data: () => ({
-    IMPORT_URI: '/codelist/import',
+    IMPORT_URI: "/codelist/import",
     valid: true,
     files: [],
     response: [],
   }),
   methods: {
     validate() {
-      this.$refs.form.validate()
+      this.$refs.form.validate();
     },
 
     reset() {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
     },
 
     sendFile() {
-      this.validate()
+      this.validate();
 
-      const formData = new FormData()
+      const formData = new FormData();
       for (let file of this.files) {
-        formData.append('files', file, file.name)
+        formData.append("files", file, file.name);
       }
 
       http.post(this.IMPORT_URI, formData).then((response) => {
-        console.log(response)
-        this.response = response.data
-        this.reset()
-      }, swal('Sucesso!', 'Arquivo salvo com sucesso!', 'success'))
+        console.log(response);
+        this.response = response.data;
+        this.reset();
+      }, Swal("Sucesso!", "Arquivo salvo com sucesso!", "success"));
     },
 
     removeFile(fileKey) {
-      this.files.splice(fileKey, 1)
+      this.files.splice(fileKey, 1);
     },
   },
-}
+};
 </script>
 
 <style scoped>

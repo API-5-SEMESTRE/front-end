@@ -53,7 +53,7 @@
                                 >
                                 <v-text-field
                                   label="Nome"
-                                  v-model="nome"
+                                  v-model="usuario.nome"
                                   :rules="regra_nome"
                                   single-line
                                   solo
@@ -61,7 +61,6 @@
                                   dense
                                   background-color="#e0e1dd"
                                 ></v-text-field>
-                                {{ nome }}
                               </v-col>
                             </v-row>
                             <v-row justify="center">
@@ -71,7 +70,7 @@
                                 >
                                 <v-text-field
                                   label="E-mail"
-                                  v-model="email"
+                                  v-model="usuario.email"
                                   :rules="regra_email"
                                   single-line
                                   solo
@@ -79,7 +78,6 @@
                                   dense
                                   background-color="#e0e1dd"
                                 ></v-text-field>
-                                {{ email }}
                               </v-col>
                             </v-row>
                             <v-row justify="center">
@@ -89,7 +87,7 @@
                                 >
                                 <v-text-field
                                   label="Senha"
-                                  v-model="senha"
+                                  v-model="usuario.senha"
                                   :rules="regra_senha"
                                   background-color="#e0e1dd"
                                   single-line
@@ -103,7 +101,6 @@
                                   :type="show1 ? 'text' : 'password'"
                                   @click:append="show1 = !show1"
                                 ></v-text-field>
-                                {{ senha }}
                               </v-col>
                             </v-row>
                             <v-row justify="center">
@@ -114,7 +111,7 @@
                                 <v-select
                                   :items="tipo_acesso"
                                   label="Tipo de Acesso"
-                                  v-model="tipoAcesso"
+                                  v-model="usuario.tipoAcesso"
                                   single-line
                                   solo
                                   required
@@ -125,7 +122,6 @@
                                       !!v || 'O tipo do usuário é obrigatório',
                                   ]"
                                 ></v-select>
-                                {{ tipoAcesso }}
                               </v-col>
                             </v-row>
                             <v-row>
@@ -139,7 +135,7 @@
                                 <v-btn
                                   color="#1b263b"
                                   class="white--text mr-4"
-                                  type="btn"
+                                  type="submit"
                                   :disabled="!valid"
                                 >
                                   Salvar
@@ -151,22 +147,22 @@
                       </v-card-text>
                     </v-card>
                   </v-dialog>
-                  <v-dialog v-model="dialogDelete" max-width="500px">
-                    <v-card>
-                      <v-card-title class="text-h5"
-                        >Are you sure you want to delete this
+                  <v-dialog v-model="dialogDelete" max-width="540px">
+                    <v-card color="#272733">
+                      <v-card-title class="text-h5 white--text"
+                        >Tem certeza de que deseja excluir este
                         item?</v-card-title
                       >
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="closeDelete"
-                          >Cancel</v-btn
-                        >
+                        <v-btn text color="white" @click="closeDelete">
+                          Cancelar
+                        </v-btn>
                         <v-btn
-                          color="blue darken-1"
-                          text
-                          @click="deleteItemConfirm"
-                          >OK</v-btn
+                          color="#C84634"
+                          class="white--text mr-4"
+                          @click="deletar_usuario(usuario)"
+                          >Sim</v-btn
                         >
                         <v-spacer></v-spacer>
                       </v-card-actions>
@@ -174,11 +170,12 @@
                   </v-dialog>
                 </v-toolbar>
               </template>
-              <template v-slot:item.actions="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
+              <!-- <template v-slot:item.actions="{ item }"> -->
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-icon class="mr-2" @click="editar_usuario(item)">
                   mdi-pencil
                 </v-icon>
-                <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+                <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
               </template>
             </v-data-table>
           </v-flex>
@@ -189,31 +186,31 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Usuario from "../services/usuario";
+import Swal from "sweetalert2";
 export default {
-  name: 'usuario-crud',
-  head: {
-    title: 'CRUD usuário',
-  },
+  name: "usuario-crud",
   data: () => ({
-    id: '',
-    nome: '',
-    email: '',
-    senha: '',
-    tipoAcesso: '',
+    // Criando o objeto que vai ser feito o POST
+    usuario: {
+      id: "",
+      nome: "",
+      email: "",
+      senha: "",
+      tipoAcesso: "",
+    },
 
     // Validando se os campos do formulario estão preenchidos e se são validos
     valid: true,
-    regra_nome: [(v) => !!v || 'O nome é obrigatório'],
+    regra_nome: [(v) => !!v || "O nome é obrigatório"],
     regra_email: [
-      (v) => !!v || 'O e-mail é obrigatório',
-      //(v) => /.+@.+\..+/.test(v) || "E-mail inválido",
-      //(v) => /^[a-z0-9.]+@oracle.com$/.test(v) || "E-mail inválido",
+      (v) => !!v || "O e-mail é obrigatório",
+      (v) => /.+@.+\..+/.test(v) || "E-mail inválido",
     ],
-    regra_senha: [(v) => !!v || 'A senha é obrigatória'],
+    regra_senha: [(v) => !!v || "A senha é obrigatória"],
 
     // Criando os arrays que vão armazenar os conteudos dos selects de Status do Usuario e Tipo de Usuario
-    tipo_acesso: ['ADMINISTRADOR', 'VENDEDOR', 'INTELIGENCIA'],
+    tipo_acesso: ["ADMINISTRADOR", "VENDEDOR", "INTELIGENCIA"],
 
     // Criando a variavel pro icone de mostrar a senha
     show1: false,
@@ -225,25 +222,25 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: 'ID',
-        align: 'start',
-        value: 'id',
+        text: "ID",
+        align: "start",
+        value: "id",
       },
-      { text: 'Nome', value: 'nome' },
-      { text: 'Tipo acesso', value: 'tipoAcesso' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: "Nome", value: "nome" },
+      { text: "Tipo acesso", value: "tipoAcesso" },
+      { text: "Actions", value: "actions", sortable: false },
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
-      name: '',
+      name: "",
       calories: 0,
       fat: 0,
       carbs: 0,
       protein: 0,
     },
     defaultItem: {
-      name: '',
+      name: "",
       calories: 0,
       fat: 0,
       carbs: 0,
@@ -252,85 +249,138 @@ export default {
   }),
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Novo Usuário' : 'Editar Usuário'
+      return this.editedIndex === -1 ? "Novo Usuário" : "Editar Usuário";
     },
   },
   watch: {
     dialog(val) {
-      val || this.close()
+      val || this.close();
     },
     dialogDelete(val) {
-      val || this.closeDelete()
+      val || this.closeDelete();
     },
   },
   mounted() {
     // Chamando o método exibir_usuario()
-    this.exibir_usuario()
+    this.exibir_usuario();
   },
   methods: {
+    // Método de cadastro de usuario
     cadastrar_usuario() {
-      this.$axios.$post('usuario/cadastrar', {
-        nome: this.name,
-        email: this.email,
-        senha: this.senha,
-        tipoAcesso: this.tipoAcesso,
-      })
-    },
-
-    // Método pra exibir os usuarios
-    async exibir_usuario() {
-      this.lista_de_usuarios = await this.$axios.$get('usuario/todos-usuarios')
-      this.lista_de_usuarios = lista_de_usuarios.data
-    },
-
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
-    },
-
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
-    },
-
-    close() {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    closeDelete() {
-      this.dialogDelete = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+      // Se o usuario não tiver um "id" significa que esse usuario não existe então ele vai pra resquest de cadastro
+      if (!this.usuario.id) {
+        Usuario.salvar_usuario(this.usuario)
+          .then((resposta_cadastro_usuario) => {
+            this.usuario = {};
+            Swal.fire(
+              "Sucesso",
+              "Usuário " +
+                resposta_cadastro_usuario.data.nome +
+                " cadastrado com sucesso!!!",
+              "success"
+            );
+            this.exibir_usuario();
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao cadastrar o usuário! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+        this.close();
       } else {
-        this.desserts.push(this.editedItem)
+        // Método de atualizar usuario
+        // Se o usuario já tiver um "cod" ele já existe então ele vai pra request de atualizar
+        Usuario.atualizar_usuario(this.usuario)
+          .then((resposta_atualizar_usuario) => {
+            this.usuario = {};
+            Swal.fire(
+              "Sucesso",
+              "Usuário " +
+                resposta_atualizar_usuario.data.nome +
+                " atualizado com sucesso!!!",
+              "success"
+            );
+            this.exibir_usuario();
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao atualizar o usuário! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+        this.close();
       }
-      this.close()
+    },
+    // Método pra exibir os usuarios
+    exibir_usuario() {
+      Usuario.listar_usuarios()
+        .then((resposta_lista_usuarios) => {
+          this.lista_de_usuarios = resposta_lista_usuarios.data;
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao carregar a tabela de usuários! - Erro: " +
+              e.response.data.error,
+            "error"
+          );
+        });
     },
 
     // Método que valida se os campos estão preenchidos, se não estiverem ele bloqueia o botão CADASTRAR
     validate() {
-      this.$refs.form.validate()
+      this.$refs.form.validate();
+    },
+
+    // Método que vai recuparar os dados da tabela e armazenar no objeto usuario
+    editar_usuario(usuario) {
+      this.editedIndex = this.lista_de_usuarios.indexOf(usuario);
+      this.usuario = Object.assign({}, usuario);
+      this.dialog = true;
+    },
+
+    // Método que vai recuparar os dados da tabela e armazenar no objeto usuario
+    deleteItem(usuario) {
+      this.editedIndex = this.lista_de_usuarios.indexOf(usuario);
+      this.usuario = Object.assign({}, usuario);
+      console.log(this.usuario);
+      this.dialogDelete = true;
+    },
+
+    // Método pra excluir os usuarios
+    deletar_usuario(usuario) {
+      Usuario.excluir_usuario(usuario)
+        .then((resposta_excluir_usuario) => {
+          Swal.fire("Sucesso", "Usuário excluido com sucesso!!!", "success");
+          resposta_excluir_usuario;
+          this.exibir_usuario();
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao excluir o usuário! - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
+      this.closeDelete();
+    },
+
+    // Método que vai fechar o modal "dialog"
+    close() {
+      this.dialog = false;
+      this.usuario = {};
+    },
+
+    // Método que vai fechar o modal "dialogDelete"
+    closeDelete() {
+      this.dialogDelete = false;
+      this.usuario = {};
     },
   },
-}
+};
 </script>
 
 <style>
