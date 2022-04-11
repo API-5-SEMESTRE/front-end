@@ -4,7 +4,7 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md10>
-            <h1 class="text-center white--text">UPLOAD CSV</h1>
+            <h1 class="text-center white--text">UPLOAD CIDADE</h1>
             <p class="text-center white--text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
               veritatis illo unde asperiores voluptates voluptatem, enim at
@@ -17,36 +17,35 @@
                   <v-card-text>
                     <v-row class="mb-6" no-gutters>
                       <v-col>
-                        <client-only>
-                          <v-file-input
-                            v-model="files"
-                            color="blue accent-4"
-                            counter
-                            label="Inserir o CSV"
-                            placeholder="Inserir o CSV"
-                            prepend-icon="mdi-paperclip"
-                            outlined
-                            :show-size="1000"
-                          >
-                            <template v-slot:selection="{ index, text }">
-                              <v-chip
-                                v-if="index < 2"
-                                color="blue accent-4"
-                                dark
-                                label
-                                small
-                              >
-                                {{ text }}
-                              </v-chip>
-                              <span
-                                v-else-if="index === 2"
-                                class="overline grey--text text--darken-3 mx-2"
-                              >
-                                +{{ files.length - 2 }} File(s)
-                              </span>
-                            </template>
-                          </v-file-input>
-                        </client-only>
+                        <v-file-input
+                          v-model="files"
+                          color="blue accent-4"
+                          counter
+                          label="Inserir o CodeList"
+                          multiple
+                          placeholder="Select your files"
+                          prepend-icon="mdi-paperclip"
+                          outlined
+                          :show-size="1000"
+                        >
+                          <template v-slot:selection="{ index, text }">
+                            <v-chip
+                              v-if="index < 2"
+                              color="blue accent-4"
+                              dark
+                              label
+                              small
+                            >
+                              {{ text }}
+                            </v-chip>
+                            <span
+                              v-else-if="index === 2"
+                              class="overline grey--text text--darken-3 mx-2"
+                            >
+                              +{{ files.length - 2 }} File(s)
+                            </span>
+                          </template>
+                        </v-file-input>
                       </v-col>
                     </v-row>
                     <v-row>
@@ -70,6 +69,30 @@
                 </v-card>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col>
+                <v-card class="mx-auto rounded-xl">
+                  <v-simple-table>
+                    <thead>
+                      <tr>
+                        <th class="text-left">Id</th>
+                        <th class="text-left">Cidade</th>
+                        <th class="text-left">UF</th>
+                        <th class="text-left">Região</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in response" :key="item.id">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.descricao }}</td>
+                        <td>{{ item.siglaEstado }}</td>
+                        <td>{{ item.registroIbge }}</td>
+                      </tr>
+                    </tbody>
+                  </v-simple-table>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-flex>
         </v-layout>
       </v-container>
@@ -78,24 +101,21 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
 import { http } from "../services/config";
+import Swal from "sweetalert2";
+
 export default {
-  name: "upload-csv",
-  head: {
-    title: "Upload CSV",
-  },
   data: () => ({
-    IMPORT_URI: "/codelist/import",
+    IMPORT_URI: "/cidade/leitor-csv",
     valid: true,
     files: [],
     response: [],
   }),
+
   methods: {
     validate() {
       this.$refs.form.validate();
     },
-
     reset() {
       this.$refs.form.reset();
     },
@@ -105,18 +125,27 @@ export default {
 
       const formData = new FormData();
       for (let file of this.files) {
-        formData.append("files", file, file.name);
+        formData.append("arquivo", file, file.name);
       }
 
-      http.post(this.IMPORT_URI, formData).then((response) => {
-        console.log(response);
-        this.response = response.data;
-        this.reset();
-      }, Swal("Sucesso!", "Arquivo salvo com sucesso!", "success"));
-    },
-
-    removeFile(fileKey) {
-      this.files.splice(fileKey, 1);
+      http
+        .post(this.IMPORT_URI, formData)
+        .then((response) => {
+          this.response = response.data;
+          this.reset();
+          Swal.fire(
+            "Sucesso",
+            "Arquivo importado com sucesso",
+            "success"
+          );
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao importar o arquivo - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
     },
   },
 };
