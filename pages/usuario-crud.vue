@@ -4,7 +4,7 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md10>
-            <h1 class="text-center white--text">CADASTRAR VENDEDOR</h1>
+            <h1 class="text-center white--text">CADASTRAR USUÁRIO</h1>
             <p class="text-center white--text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
               veritatis illo unde asperiores voluptates voluptatem, enim at
@@ -13,13 +13,13 @@
             </p>
             <v-data-table
               :headers="headers"
-              :items="desserts"
+              :items="lista_de_usuarios"
               sort-by="calories"
               class="elevation-1"
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title>My CRUD</v-toolbar-title>
+                  <v-toolbar-title>CRUD</v-toolbar-title>
                   <v-divider class="mx-4" inset vertical></v-divider>
                   <v-spacer></v-spacer>
                   <v-dialog v-model="dialog" max-width="500px">
@@ -31,60 +31,124 @@
                         v-bind="attrs"
                         v-on="on"
                       >
-                        New Item
+                        Novo Usuário
                       </v-btn>
                     </template>
-                    <v-card>
+                    <v-card color="#415a77">
                       <v-card-title>
-                        <span class="text-h5">{{ formTitle }}</span>
+                        <span class="text-h5 white--text">{{ formTitle }}</span>
                       </v-card-title>
-
                       <v-card-text>
                         <v-container>
-                          <v-row>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.name"
-                                label="Dessert name"
-                              ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.calories"
-                                label="Calories"
-                              ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.fat"
-                                label="Fat (g)"
-                              ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.carbs"
-                                label="Carbs (g)"
-                              ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.protein"
-                                label="Protein (g)"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
+                          <v-form
+                            ref="form"
+                            v-model="valid"
+                            lazy-validation
+                            @submit="cadastrar_usuario"
+                          >
+                            <v-row justify="center">
+                              <v-col cols="24">
+                                <span style="color: white; font-size: 18px"
+                                  >Nome</span
+                                >
+                                <v-text-field
+                                  label="Nome"
+                                  v-model="nome"
+                                  :rules="regra_nome"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                ></v-text-field>
+                                {{ nome }}
+                              </v-col>
+                            </v-row>
+                            <v-row justify="center">
+                              <v-col cols="24">
+                                <span style="color: white; font-size: 18px"
+                                  >E-mail</span
+                                >
+                                <v-text-field
+                                  label="E-mail"
+                                  v-model="email"
+                                  :rules="regra_email"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                ></v-text-field>
+                                {{ email }}
+                              </v-col>
+                            </v-row>
+                            <v-row justify="center">
+                              <v-col cols="24">
+                                <span style="color: white; font-size: 18px"
+                                  >Senha</span
+                                >
+                                <v-text-field
+                                  label="Senha"
+                                  v-model="senha"
+                                  :rules="regra_senha"
+                                  background-color="#e0e1dd"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  password
+                                  :append-icon="
+                                    show1 ? 'mdi-eye' : 'mdi-eye-off'
+                                  "
+                                  :type="show1 ? 'text' : 'password'"
+                                  @click:append="show1 = !show1"
+                                ></v-text-field>
+                                {{ senha }}
+                              </v-col>
+                            </v-row>
+                            <v-row justify="center">
+                              <v-col cols="24">
+                                <span style="color: white; font-size: 18px"
+                                  >Tipo de Acesso</span
+                                >
+                                <v-select
+                                  :items="tipo_acesso"
+                                  label="Tipo de Acesso"
+                                  v-model="tipoAcesso"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                  :rules="[
+                                    (v) =>
+                                      !!v || 'O tipo do usuário é obrigatório',
+                                  ]"
+                                ></v-select>
+                                {{ tipoAcesso }}
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col></v-col>
+                              <v-col>
+                                <v-btn text color="white" @click="close">
+                                  Cancelar
+                                </v-btn>
+                              </v-col>
+                              <v-col>
+                                <v-btn
+                                  color="#1b263b"
+                                  class="white--text mr-4"
+                                  type="btn"
+                                  :disabled="!valid"
+                                >
+                                  Salvar
+                                </v-btn>
+                              </v-col>
+                            </v-row>
+                          </v-form>
                         </v-container>
                       </v-card-text>
-
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
-                          Cancel
-                        </v-btn>
-                        <v-btn color="blue darken-1" text @click="save">
-                          Save
-                        </v-btn>
-                      </v-card-actions>
                     </v-card>
                   </v-dialog>
                   <v-dialog v-model="dialogDelete" max-width="500px">
@@ -116,9 +180,6 @@
                 </v-icon>
                 <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
               </template>
-              <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize"> Reset </v-btn>
-              </template>
             </v-data-table>
           </v-flex>
         </v-layout>
@@ -128,25 +189,48 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'usuario-crud',
   head: {
     title: 'CRUD usuário',
   },
   data: () => ({
+    id: '',
+    nome: '',
+    email: '',
+    senha: '',
+    tipoAcesso: '',
+
+    // Validando se os campos do formulario estão preenchidos e se são validos
+    valid: true,
+    regra_nome: [(v) => !!v || 'O nome é obrigatório'],
+    regra_email: [
+      (v) => !!v || 'O e-mail é obrigatório',
+      //(v) => /.+@.+\..+/.test(v) || "E-mail inválido",
+      //(v) => /^[a-z0-9.]+@oracle.com$/.test(v) || "E-mail inválido",
+    ],
+    regra_senha: [(v) => !!v || 'A senha é obrigatória'],
+
+    // Criando os arrays que vão armazenar os conteudos dos selects de Status do Usuario e Tipo de Usuario
+    tipo_acesso: ['ADMINISTRADOR', 'VENDEDOR', 'INTELIGENCIA'],
+
+    // Criando a variavel pro icone de mostrar a senha
+    show1: false,
+
+    // Array aonde vai ser armazenado a lista de usuarios
+    lista_de_usuarios: [],
+
     dialog: false,
     dialogDelete: false,
     headers: [
       {
-        text: 'Dessert (100g serving)',
+        text: 'ID',
         align: 'start',
-        sortable: false,
-        value: 'name',
+        value: 'id',
       },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
+      { text: 'Nome', value: 'nome' },
+      { text: 'Tipo acesso', value: 'tipoAcesso' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     desserts: [],
@@ -168,7 +252,7 @@ export default {
   }),
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'Novo Usuário' : 'Editar Usuário'
     },
   },
   watch: {
@@ -179,83 +263,24 @@ export default {
       val || this.closeDelete()
     },
   },
-  created() {
-    this.initialize()
+  mounted() {
+    // Chamando o método exibir_usuario()
+    this.exibir_usuario()
   },
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ]
+    cadastrar_usuario() {
+      this.$axios.$post('usuario/cadastrar', {
+        nome: this.name,
+        email: this.email,
+        senha: this.senha,
+        tipoAcesso: this.tipoAcesso,
+      })
+    },
+
+    // Método pra exibir os usuarios
+    async exibir_usuario() {
+      this.lista_de_usuarios = await this.$axios.$get('usuario/todos-usuarios')
+      this.lista_de_usuarios = lista_de_usuarios.data
     },
 
     editItem(item) {
@@ -298,6 +323,11 @@ export default {
         this.desserts.push(this.editedItem)
       }
       this.close()
+    },
+
+    // Método que valida se os campos estão preenchidos, se não estiverem ele bloqueia o botão CADASTRAR
+    validate() {
+      this.$refs.form.validate()
     },
   },
 }
