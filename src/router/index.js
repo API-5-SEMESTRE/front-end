@@ -10,8 +10,8 @@ const routes = [
     component: () => import('../views/login.vue')
   },
   {
-    path: '/crud-usuario',
-    name: 'CRUD Usuário',
+    path: '/usuario-crud',
+    name: 'Usuário Usuário',
     component: () => import('../views/usuario-crud.vue')
   },
   {
@@ -22,7 +22,6 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
