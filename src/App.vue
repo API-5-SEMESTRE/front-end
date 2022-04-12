@@ -84,9 +84,24 @@ export default {
         icon: "mdi-account-plus",
       },
       {
-        conteudo: "Upload CSV",
-        url: "/upload-csv",
-        icon: "mdi-cloud-upload",
+        conteudo: "Upload Cidade",
+        url: "/upload-cidade",
+        icon: "mdi-city",
+      },
+      {
+        conteudo: "Upload CNAE",
+        url: "/upload-cnae",
+        icon: "mdi-text-box-multiple",
+      },
+      {
+        conteudo: "Upload Empresa",
+        url: "/upload-empresa",
+        icon: "mdi-briefcase",
+      },
+      {
+        conteudo: "Upload Consumo",
+        url: "/upload-consumo",
+        icon: "mdi-chart-bar",
       },
     ],
   }),
@@ -94,6 +109,11 @@ export default {
     cleanStorage() {
       localStorage.clear();
       window.location.reload(true);
+    },
+  },
+  watch: {
+    $route(to) {
+      document.title = to.meta.title || "SAS";
     },
   },
 };
