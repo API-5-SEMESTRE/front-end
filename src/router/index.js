@@ -46,6 +46,12 @@ const routes = [
     meta: { title: 'Upload Consumo' },
     component: () => import('../views/upload-consumo.vue')
   },
+  {
+    path: '/carteira-vendedor',
+    name: 'Carteira Vendedor',
+    meta: { title: 'Carteira Vendedor' },
+    component: () => import('../views/carteira-vendedor.vue')
+  },
 ]
 
 const router = new VueRouter({

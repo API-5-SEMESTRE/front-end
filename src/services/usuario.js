@@ -13,4 +13,7 @@ export default {
     excluir_usuario: (usuario) => {
         return http.delete(`usuario/deletar/${usuario.id}`);
     },
+    salvar_carteira: (carteira) => {
+        return http.put(`adicionar-vendedor-empresa/${carteira.id}/${carteira.cnpj}`, carteira);
+    },
 };

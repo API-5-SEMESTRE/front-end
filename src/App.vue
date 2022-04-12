@@ -103,6 +103,11 @@ export default {
         url: "/upload-consumo",
         icon: "mdi-chart-bar",
       },
+      {
+        conteudo: "Carteira/Vendedor",
+        url: "/carteira-vendedoro",
+        icon: "mdi-wallet-plus",
+      },
     ],
   }),
   methods: {
