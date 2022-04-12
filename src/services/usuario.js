@@ -8,7 +8,7 @@ export default {
         return http.post(`usuario/cadastrar`, usuario);
     },
     atualizar_usuario: (usuario) => {
-        return http.put(`usuario/update`, usuario);
+        return http.put(`usuario/atualizar-dados/${usuario.id}`, usuario);
     },
     excluir_usuario: (usuario) => {
         return http.delete(`usuario/deletar/${usuario.id}`);
