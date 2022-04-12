@@ -105,7 +105,7 @@ export default {
       },
       {
         conteudo: "Carteira/Vendedor",
-        url: "/carteira-vendedoro",
+        url: "/carteira-vendedor",
         icon: "mdi-wallet-plus",
       },
     ],
