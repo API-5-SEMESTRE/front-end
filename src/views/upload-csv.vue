@@ -275,6 +275,99 @@
                 </v-col>
               </v-row>
             </div>
+            <div class="pt-16">
+              <h1 class="text-center white--text">UPLOAD CONSUMO</h1>
+              <p class="text-center white--text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                veritatis illo unde asperiores voluptates voluptatem, enim at
+                ullam, dolore omnis cumque repellendus nesciunt dolores nihil?
+                Praesentium fuga aut optio quam.
+              </p>
+              <v-row class="pa-4">
+                <v-col>
+                  <v-card class="pa-2 rounded-xl" tile outlined color="white">
+                    <v-card-text>
+                      <v-row class="mb-6" no-gutters>
+                        <v-col>
+                          <v-file-input
+                            v-model="filesConsumo"
+                            color="blue accent-4"
+                            counter
+                            label="Inserir o arquivo"
+                            multiple
+                            placeholder="Inserir o arquivo"
+                            prepend-icon="mdi-paperclip"
+                            outlined
+                            :show-size="1000"
+                          >
+                            <template v-slot:selection="{ index, text }">
+                              <v-chip
+                                v-if="index < 2"
+                                color="blue accent-4"
+                                dark
+                                label
+                                small
+                              >
+                                {{ text }}
+                              </v-chip>
+                              <span
+                                v-else-if="index === 2"
+                                class="overline grey--text text--darken-3 mx-2"
+                              >
+                                +{{ files.length - 2 }} File(s)
+                              </span>
+                            </template>
+                          </v-file-input>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <div id="btn">
+                            <v-form ref="form" v-model="valid" lazy-validation>
+                              <v-btn
+                                :disabled="!valid"
+                                color="primary"
+                                class="mr-4"
+                                @click="sendFileConsumo"
+                                id="botao-enviar"
+                              >
+                                Enviar
+                              </v-btn>
+                            </v-form>
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-card class="mx-auto rounded-xl">
+                    <v-simple-table>
+                      <thead>
+                        <tr>
+                          <th class="text-left">Data referência</th>
+                          <th class="text-left">CNPJ</th>
+                          <th class="text-left">CNAE</th>
+                          <th class="text-left">Origem</th>
+                          <th class="text-left">Consumo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item in return_consumo" :key="item.id">
+                          <td>{{ item.consumoId.mesReferencia }}</td>
+                          <td>{{ item.consumoId.empresa.cnpj }}</td>
+                          <td>{{ item.consumoId.empresa.cnae }}</td>
+                          <td>{{ item.consumoId.empresa.origem }}</td>
+                          <td>{{ item.consumoId.quantidadeConsumo }}</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </div>
           </v-flex>
         </v-layout>
       </v-container>
@@ -291,6 +384,7 @@ export default {
     URL_CIDADE: "/cidade/leitor-csv",
     URL_CNAE: "/cnae/leitor-csv",
     URL_EMPRESA: "/empresa/leitor-csv",
+    URL_CONSUMO: "/consumo/leitor-csv",
     valid: true,
     filesCidade: [],
     return_cidade: [],
@@ -298,6 +392,8 @@ export default {
     return_cnae: [],
     filesEmpresa: [],
     return_empresa: [],
+    filesConsumo: [],
+    return_consumo: [],
   }),
 
   methods: {
@@ -355,7 +451,7 @@ export default {
       const formData = new FormData();
       for (let file of this.filesEmpresa) {
         formData.append("arquivo", file, file.name);
-        console
+        console;
       }
       http
         .post(this.URL_EMPRESA, formData)
@@ -368,6 +464,28 @@ export default {
           Swal.fire(
             "Oops...",
             "Erro ao importar o arquivo - Erro: " + e.return_empresa.data.error,
+            "error"
+          );
+        });
+    },
+    sendFileConsumo() {
+      this.validate();
+      const formData = new FormData();
+      for (let file of this.filesConsumo) {
+        formData.append("arquivo", file, file.name);
+        console;
+      }
+      http
+        .post(this.URL_CONSUMO, formData)
+        .then((return_consumo) => {
+          this.return_consumo = return_consumo.data;
+          this.reset();
+          Swal.fire("Sucesso", "Arquivo importado com sucesso", "success");
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao importar o arquivo - Erro: " + e.return_consumo.data.error,
             "error"
           );
         });
