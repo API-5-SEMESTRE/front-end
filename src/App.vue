@@ -1,55 +1,107 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <div id="app">
+    <v-app>
+      <v-main>
+        <!-- <v-app-bar color="#415a77" dark v-if="this.$route.path !== '/login'">
+          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+          <v-toolbar-title class="white--text"
+            >SAS - Score Analysis System
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon v-on:click="cleanStorage()">
+            <v-icon>mdi-exit-run</v-icon>
+          </v-btn>
+        </v-app-bar> -->
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+        <!-- <div v-if="this.$route.path !== '/login'">
+          <div v-if="this.$route.path !== '/Login'">
+            <div v-if="this.$route.path !== '/Criar_Conta'">
+              <v-btn
+                style="margin-top: 20px; margin-left: 20px"
+                icon
+                @click="drawer = true"
+              >
+                <v-icon large color="white">mdi-menu</v-icon>
+              </v-btn>
+            </div>
+          </div>
+        </div> -->
 
-      <v-spacer></v-spacer>
+        <v-app-bar color="#415a77" dark>
+          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+          <v-toolbar-title class="white--text"
+            >SAS - Score Analysis System
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon to="/">
+            <v-icon>mdi-exit-run</v-icon>
+          </v-btn>
+        </v-app-bar>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+        <v-navigation-drawer
+          v-model="drawer"
+          absolute
+          temporary
+          width="250px"
+          color="#415a77"
+        >
+          <v-list nav dense>
+            <v-list-item-group active-class="grey lighten-1">
+              <v-list-item
+                v-for="(item, index) in menus"
+                :key="index"
+                :to="item.url"
+              >
+                <v-list-item-icon>
+                  <v-icon color="white">{{ item.icon }}</v-icon>
+                </v-list-item-icon>
 
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+                <v-list-item-title class="white--text">{{
+                  item.conteudo
+                }}</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+        <router-view></router-view>
+      </v-main>
+    </v-app>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-
+  name: "App",
+  components: {},
   data: () => ({
-    //
+    //logado: true,
+    drawer: false,
+    menus: [
+      { conteudo: "Home", url: "/", icon: "mdi-home-variant" },
+      {
+        conteudo: "Gestão Usuário",
+        url: "/usuario-crud",
+        icon: "mdi-account-plus",
+      },
+      {
+        conteudo: "Upload CSV",
+        url: "/upload-csv",
+        icon: "mdi-cloud-upload",
+      },
+    ],
   }),
+  methods: {
+    cleanStorage() {
+      localStorage.clear();
+      window.location.reload(true);
+    },
+  },
 };
 </script>
+
+<style>
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 0px;
+}
+</style>
