@@ -14,6 +14,6 @@ export default {
         return http.delete(`usuario/deletar/${usuario.id}`);
     },
     salvar_carteira: (carteira) => {
-        return http.put(`adicionar-vendedor-empresa/${carteira.id}/${carteira.cnpj}`, carteira);
+        return http.put(`usuario/adicionar-vendedor-empresa/${carteira.id}/${carteira.cnpj}`, carteira);
     },
 };
