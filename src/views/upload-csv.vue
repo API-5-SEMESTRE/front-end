@@ -257,12 +257,16 @@
                       <thead>
                         <tr>
                           <th class="text-left">CNPJ</th>
+                          <th class="text-left">Cidade</th>
+                          <th class="text-left">CNAE</th>
                           <th class="text-left">Empresa Origem</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="item in return_empresa" :key="item.id">
                           <td>{{ item.cnpj }}</td>
+                          <td>{{ item.cidade.descricao }}</td>
+                          <td>{{ item.cnae.descricao }}</td>
                           <td>{{ item.origem }}</td>
                         </tr>
                       </tbody>
