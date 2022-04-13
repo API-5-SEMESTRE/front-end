@@ -18,7 +18,7 @@
                           ref="form"
                           v-model="validCadastro"
                           lazy-validation
-                          @submit="cadastrar_carteira"
+                          @submit="cadastrar_carteira(carteira)"
                         >
                           <v-row justify="center">
                             <v-col cols="24">
@@ -286,6 +286,7 @@ export default {
     lista_de_usuarios: [],
     lista_de_empresas: [],
     lista_de_carteira: [],
+    lista_de_carteira_usuario: [],
 
     headersUsuarios: [
       {
@@ -307,6 +308,7 @@ export default {
       { text: "CNAE", value: "cnae.descricao" },
       { text: "Origem", value: "origem" },
       { text: "Vendedor", value: "usuario.nome" },
+      { text: "Acesso", value: "usuario.tipoAcesso" },
       { text: "Data de cadastro", value: "dataDeCadastroVendedor" },
     ],
   }),
@@ -318,20 +320,37 @@ export default {
   methods: {
     // Método de cadastro de usuario
     cadastrar_carteira() {
-      Usuario.salvar_carteira(this.carteira)
-        .then((resposta_cadastro_carteira) => {
-          this.usuario = {};
-          Swal.fire("Sucesso", "Carteira cadastrado com sucesso!!!", "success");
-          this.exibir_usuario();
-          resposta_cadastro_carteira;
-        })
-        .catch((e) => {
+      Usuario.listar_carteira(this.carteira).then((resposta_lista_carteira) => {
+        this.lista_de_carteira_usuario = resposta_lista_carteira.data.vendedor;
+        console.log(this.lista_de_carteira_usuario.tipoAcesso);
+        if (this.lista_de_carteira_usuario.tipoAcesso === "VENDEDOR") {
+          Usuario.salvar_carteira(this.carteira)
+            .then((resposta_cadastro_carteira) => {
+              this.usuario = {};
+              Swal.fire(
+                "Sucesso",
+                "Carteira cadastrado com sucesso!!!",
+                "success"
+              );
+              this.exibir_usuario();
+              resposta_cadastro_carteira;
+            })
+            .catch((e) => {
+              Swal.fire(
+                "Oops...",
+                "Erro ao cadastrar a carteira! - Erro: " +
+                  e.response.data.error,
+                "error"
+              );
+            });
+        } else {
           Swal.fire(
             "Oops...",
-            "Erro ao cadastrar a carteira! - Erro: " + e.response.data.error,
+            "O usuário informado não é um VENDEDOR!",
             "error"
           );
-        });
+        }
+      });
     },
     // Método pra exibir os usuarios
     exibir_usuario() {
@@ -390,8 +409,7 @@ export default {
         .catch((e) => {
           Swal.fire(
             "Oops...",
-            "Erro ao exluir o CNPJ! - Erro: " +
-              e.response.data.error,
+            "Erro ao exluir o CNPJ! - Erro: " + e.response.data.error,
             "error"
           );
         });
