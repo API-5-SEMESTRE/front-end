@@ -4,13 +4,7 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md10>
-            <h1 class="text-center white--text">CADASTRAR USUÁRIO</h1>
-            <p class="text-center white--text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-              veritatis illo unde asperiores voluptates voluptatem, enim at
-              ullam, dolore omnis cumque repellendus nesciunt dolores nihil?
-              Praesentium fuga aut optio quam.
-            </p>
+            <h1 class="text-center white--text pb-5">GESTÃO USUÁRIO</h1>
             <v-data-table
               :headers="headers"
               :items="lista_de_usuarios"
