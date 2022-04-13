@@ -4,20 +4,14 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md10>
-            <h1 class="text-center white--text">CARTEIRA VENDEDOR</h1>
-            <p class="text-center white--text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-              veritatis illo unde asperiores voluptates voluptatem, enim at
-              ullam, dolore omnis cumque repellendus nesciunt dolores nihil?
-              Praesentium fuga aut optio quam.
-            </p>
-            <div>
+            <h1 class="text-center white--text">GESTÃO CARTEIRA VENDEDOR</h1>
+            <div class="pt-5">
               <v-row>
                 <v-col>
                   <v-card color="#415a77">
                     <v-card-text>
                       <span style="color: white; font-size: 18px"
-                        >CADASTRAR</span
+                        >CADASTRAR CARTEIRA/VENDEDOR</span
                       >
                       <v-container>
                         <v-form
@@ -32,7 +26,7 @@
                                 >Usuário</span
                               >
                               <v-text-field
-                                label="Usuário"
+                                label="ID Usuário"
                                 v-model="carteira.id"
                                 :rules="regra_usuario"
                                 single-line
@@ -49,7 +43,7 @@
                                 >Empresa</span
                               >
                               <v-text-field
-                                label="Empresa"
+                                label="CNPJ Empresa"
                                 v-model="carteira.cnpj"
                                 :rules="regra_empresa"
                                 single-line
@@ -85,7 +79,7 @@
                       <v-card color="#415a77">
                         <v-card-text>
                           <span style="color: white; font-size: 18px"
-                            >PESQUISAR</span
+                            >PESQUISAR CARTEIRA/VENDEDOR</span
                           >
                           <v-container>
                             <v-form
@@ -100,7 +94,7 @@
                                     >Usuário</span
                                   >
                                   <v-text-field
-                                    label="Usuário"
+                                    label="ID Usuário"
                                     v-model="carteira_usuario.id"
                                     :rules="regra_usuario"
                                     single-line
@@ -136,7 +130,7 @@
                       <v-card color="#415a77">
                         <v-card-text>
                           <span style="color: white; font-size: 18px"
-                            >DELETAR</span
+                            >DELETAR CARTEIRA/VENDEDOR</span
                           >
                           <v-container>
                             <v-form
