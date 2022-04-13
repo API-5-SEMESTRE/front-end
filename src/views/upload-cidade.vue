@@ -6,12 +6,6 @@
           <v-flex xs12 sm8 md10>
             <div>
               <h1 class="text-center white--text">UPLOAD CIDADE</h1>
-              <p class="text-center white--text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                veritatis illo unde asperiores voluptates voluptatem, enim at
-                ullam, dolore omnis cumque repellendus nesciunt dolores nihil?
-                Praesentium fuga aut optio quam.
-              </p>
               <v-row class="pa-4">
                 <v-col>
                   <v-card class="pa-2 rounded-xl" tile outlined color="white">
