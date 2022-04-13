@@ -16,10 +16,13 @@
                 <v-col>
                   <v-card color="#415a77">
                     <v-card-text>
+                      <span style="color: white; font-size: 18px"
+                        >CADASTRAR</span
+                      >
                       <v-container>
                         <v-form
                           ref="form"
-                          v-model="valid"
+                          v-model="validCadastro"
                           lazy-validation
                           @submit="cadastrar_carteira"
                         >
@@ -59,15 +62,13 @@
                           </v-row>
                           <v-row>
                             <v-col></v-col>
-                            <v-col>
-                              <v-btn text color="white"> Cancelar </v-btn>
-                            </v-col>
+                            <v-col> </v-col>
                             <v-col>
                               <v-btn
                                 color="#1b263b"
                                 class="white--text mr-4"
                                 type="submit"
-                                :disabled="!valid"
+                                :disabled="!validCadastro"
                               >
                                 Salvar
                               </v-btn>
@@ -77,6 +78,128 @@
                       </v-container>
                     </v-card-text>
                   </v-card>
+                </v-col>
+                <v-col>
+                  <v-row>
+                    <v-col>
+                      <v-card color="#415a77">
+                        <v-card-text>
+                          <span style="color: white; font-size: 18px"
+                            >PESQUISAR</span
+                          >
+                          <v-container>
+                            <v-form
+                              ref="form"
+                              v-model="validPesquisa"
+                              lazy-validation
+                              @submit="pesquisar_carteira"
+                            >
+                              <v-row justify="center">
+                                <v-col cols="24">
+                                  <span style="color: white; font-size: 18px"
+                                    >Usuário</span
+                                  >
+                                  <v-text-field
+                                    label="Usuário"
+                                    v-model="carteira_usuario.id"
+                                    :rules="regra_usuario"
+                                    single-line
+                                    solo
+                                    required
+                                    dense
+                                    background-color="#e0e1dd"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col></v-col>
+                                <v-col> </v-col>
+                                <v-col>
+                                  <v-btn
+                                    color="#1b263b"
+                                    class="white--text mr-4"
+                                    type="submit"
+                                    :disabled="!validPesquisa"
+                                  >
+                                    Pesquisar
+                                  </v-btn>
+                                </v-col>
+                              </v-row>
+                            </v-form>
+                          </v-container>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>
+                      <v-card color="#415a77">
+                        <v-card-text>
+                          <span style="color: white; font-size: 18px"
+                            >DELETAR</span
+                          >
+                          <v-container>
+                            <v-form
+                              ref="form"
+                              v-model="validDeletar"
+                              lazy-validation
+                              @submit="deletar_carteira"
+                            >
+                              <v-row justify="center">
+                                <v-col cols="24">
+                                  <span style="color: white; font-size: 18px"
+                                    >CNPJ</span
+                                  >
+                                  <v-text-field
+                                    label="CNPJ"
+                                    v-model="carteira_deletar.cnpj"
+                                    :rules="regra_cnpj"
+                                    single-line
+                                    solo
+                                    required
+                                    dense
+                                    background-color="#e0e1dd"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col></v-col>
+                                <v-col> </v-col>
+                                <v-col>
+                                  <v-btn
+                                    color="#1b263b"
+                                    class="white--text mr-4"
+                                    type="submit"
+                                    :disabled="!validDeletar"
+                                  >
+                                    Deletar
+                                  </v-btn>
+                                </v-col>
+                              </v-row>
+                            </v-form>
+                          </v-container>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </div>
+            <div class="pt-10">
+              <v-row>
+                <v-col>
+                  <v-data-table
+                    :headers="headersCarteiraVendedor"
+                    :items="lista_de_carteira"
+                    sort-by="calories"
+                    class="elevation-1"
+                  >
+                    <template v-slot:top>
+                      <v-toolbar flat>
+                        <v-toolbar-title>CARTEIRA/VENDEDOR</v-toolbar-title>
+                      </v-toolbar>
+                    </template>
+                  </v-data-table>
                 </v-col>
               </v-row>
             </div>
@@ -144,9 +267,12 @@ export default {
   data: () => ({
     regra_usuario: [(v) => !!v || "O USUÁRIO é obrigatório"],
     regra_empresa: [(v) => !!v || "A EMPRESA é obrigatório"],
+    regra_cnpj: [(v) => !!v || "O CNPJ é obrigatório"],
 
     // Validando se os campos do formulario estão preenchidos e se são validos
-    valid: true,
+    validCadastro: true,
+    validPesquisa: true,
+    validDeletar: true,
 
     // Criando o objeto que vai ser feito o POST
     carteira: {
@@ -154,9 +280,18 @@ export default {
       cnpj: "",
     },
 
+    carteira_usuario: {
+      id: "",
+    },
+
+    carteira_deletar: {
+      cnpj: "",
+    },
+
     // Array aonde vai ser armazenado as listas
     lista_de_usuarios: [],
     lista_de_empresas: [],
+    lista_de_carteira: [],
 
     headersUsuarios: [
       {
@@ -168,13 +303,18 @@ export default {
       { text: "Email", value: "email" },
       { text: "Tipo acesso", value: "tipoAcesso" },
     ],
-    // headersEmpresas: [
-    //   {
-    //     text: "CNPJ",
-    //     align: "start",
-    //     value: "cnpj",
-    //   },
-    // ],
+    headersCarteiraVendedor: [
+      {
+        text: "CNPJ",
+        align: "start",
+        value: "cnpj",
+      },
+      { text: "Cidade", value: "cidade.descricao" },
+      { text: "CNAE", value: "cnae.descricao" },
+      { text: "Origem", value: "origem" },
+      { text: "Vendedor", value: "usuario.nome" },
+      { text: "Data de cadastro", value: "dataDeCadastroVendedor" },
+    ],
   }),
   mounted() {
     // Chamando o método exibir_usuario()
@@ -224,6 +364,39 @@ export default {
           Swal.fire(
             "Oops...",
             "Erro ao carregar a tabela de empresas! - Erro: " +
+              e.response.data.error,
+            "error"
+          );
+        });
+    },
+    // Método pra exibir as carteiras de um usuario
+    pesquisar_carteira() {
+      Usuario.listar_carteira(this.carteira_usuario)
+        .then((resposta_lista_carteira) => {
+          this.lista_de_carteira = resposta_lista_carteira.data.clientes;
+          console.log(this.lista_de_carteira);
+          Swal.fire("Sucesso", "Usuário pesquisado com sucesso!", "success");
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao carregar a tabela de empresas! - Erro: " +
+              e.response.data.error,
+            "error"
+          );
+        });
+    },
+    // Método pra exibir as carteiras de um usuario
+    deletar_carteira() {
+      Usuario.excluir_carteira(this.carteira_deletar)
+        .then((resposta_excluir_carteira) => {
+          Swal.fire("Sucesso", "CNPJ excluido com sucesso!!!", "success");
+          resposta_excluir_carteira;
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao exluir o CNPJ! - Erro: " +
               e.response.data.error,
             "error"
           );
