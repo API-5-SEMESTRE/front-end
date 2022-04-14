@@ -1,4 +1,4 @@
-<p align="center"> <img src="./assets/imagens-readme/logo.jpeg" alt="Sas" class="center" width=300/> </p>
+<p align="center"> <img src="./src/assets/imagens-readme/logo.jpeg" alt="Sas" class="center" width=300/> </p>
 
 O projeto a ser desenvolvido vai ser um sistema para buscar novas receitas através da criação de novas
 segmentações de clientes para a empresa parceira [SPC](https://www.spcbrasil.org.br/).
@@ -62,18 +62,15 @@ $ git clone https://github.com/API-5-SEMESTRE/front-end
 $ npm install
 
 # Rodar com o comando a seguir para rodar o Front-end
-$ npm run dev
+$ npm run serve
 
-# O Front-end está rodando localmente, acesse o link do servidor do Nuxt.js
+# O Front-end está rodando localmente, acesse o link do servidor do Vue.js
 ```
 
 <h2>Tecnologias 🛠</h2>
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-<a href="https://nuxtjs.org/">
-  <img alt="image" src="https://img.shields.io/badge/Nuxt.js-%23696969?style=for-the-badge&logo=Nuxt.js">
-</a>
 <a href="https://vuejs.org/">
   <img alt="image" src="https://img.shields.io/badge/Vue.js-%23696969?style=for-the-badge&logo=vue.js">
 </a>
