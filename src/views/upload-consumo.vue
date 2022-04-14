@@ -14,6 +14,7 @@
                         <v-col>
                           <v-file-input
                             v-model="filesConsumo"
+                            accept="text/csv"
                             color="blue accent-4"
                             counter
                             label="Inserir o arquivo"
