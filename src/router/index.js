@@ -17,12 +17,6 @@ const routes = [
     component: () => import('../views/usuario-crud.vue')
   },
   {
-    path: '/upload-csv',
-    name: 'Upload CSV',
-    meta: { title: 'Upload CSV' },
-    component: () => import('../views/upload-csv.vue')
-  },
-  {
     path: '/upload-cidade',
     name: 'Upload Cidade',
     meta: { title: 'Upload Cidade' },
