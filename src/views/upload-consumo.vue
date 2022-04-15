@@ -82,7 +82,6 @@
                         <tr v-for="item in return_consumo" :key="item.id">
                           <td>{{ item.consumoId.mesReferencia }}</td>
                           <td>{{ item.consumoId.empresa.cnpj }}</td>
-                          <td>{{ item.consumoId.empresa.cnae }}</td>
                           <td>{{ item.consumoId.empresa.origem }}</td>
                           <td>{{ item.consumoId.quantidadeConsumo }}</td>
                         </tr>
