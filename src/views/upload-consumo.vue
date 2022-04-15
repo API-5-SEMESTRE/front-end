@@ -73,7 +73,6 @@
                         <tr>
                           <th class="text-left">Data referência</th>
                           <th class="text-left">CNPJ</th>
-                          <th class="text-left">CNAE</th>
                           <th class="text-left">Origem</th>
                           <th class="text-left">Consumo</th>
                         </tr>
