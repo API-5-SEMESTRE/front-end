@@ -6,12 +6,6 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Login',
-    meta: { title: 'Login' },
-    component: () => import('../views/login.vue')
-  },
-  {
-    path: '/usuario-crud',
     name: 'Gestão Usuário',
     meta: { title: 'Gestão Usuário' },
     component: () => import('../views/usuario-crud.vue')
