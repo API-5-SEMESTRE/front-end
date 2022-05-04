@@ -1,132 +1,75 @@
 <template>
-  <div id="app">
-    <v-app>
-      <v-main>
-        <!-- <v-app-bar color="#415a77" dark v-if="this.$route.path !== '/login'">
-          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-          <v-toolbar-title class="white--text"
-            >SAS - Score Analysis System
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon v-on:click="cleanStorage()">
-            <v-icon>mdi-exit-run</v-icon>
-          </v-btn>
-        </v-app-bar> -->
-
-        <!-- <div v-if="this.$route.path !== '/login'">
-          <div v-if="this.$route.path !== '/Login'">
-            <div v-if="this.$route.path !== '/Criar_Conta'">
-              <v-btn
-                style="margin-top: 20px; margin-left: 20px"
-                icon
-                @click="drawer = true"
-              >
-                <v-icon large color="white">mdi-menu</v-icon>
-              </v-btn>
-            </div>
+  <v-app dark>
+    <!-- MENU DESKTOP -->
+    <v-app-bar hide-on-scroll app color="#E7ECEF" dark height="80px">
+      <v-toolbar-title class="text-h6 text-color"
+        >SAS - SCORE ANALYSUS SYSTEM
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <template>
+        <div align-with-title class="d-none d-sm-flex">
+          <div class="text-center">
+            <v-btn to="/" color="#274c77" text dark> Usuários </v-btn>
           </div>
-        </div> -->
-
-        <v-app-bar color="#415a77" dark>
-          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-          <v-toolbar-title class="white--text"
-            >SAS - Score Analysis System
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon to="/">
-            <v-icon>mdi-exit-run</v-icon>
-          </v-btn>
-        </v-app-bar>
-
-        <v-navigation-drawer
-          v-model="drawer"
-          absolute
-          temporary
-          width="250px"
-          color="#415a77"
-        >
-          <v-list nav dense>
-            <v-list-item-group active-class="grey lighten-1">
-              <v-list-item
-                v-for="(item, index) in menus"
-                :key="index"
-                :to="item.url"
-              >
-                <v-list-item-icon>
-                  <v-icon color="white">{{ item.icon }}</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-title class="white--text">{{
-                  item.conteudo
-                }}</v-list-item-title>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-navigation-drawer>
-        <router-view></router-view>
-      </v-main>
-    </v-app>
-  </div>
+          <div class="text-center">
+            <v-btn to="/carteira-vendedor" color="#274c77" text dark>
+              Carteira/Vendedor
+            </v-btn>
+          </div>
+          <div class="text-center">
+            <v-menu open-on-hover bottom offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="#274c77" text dark v-bind="attrs" v-on="on">
+                  Upload CSV
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in menu_upload_csv"
+                  :key="index"
+                  :to="item.to"
+                >
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+        </div>
+      </template>
+    </v-app-bar>
+    <router-view></router-view>
+  </v-app>
 </template>
 
 <script>
 export default {
   name: "App",
-  components: {},
   data: () => ({
-    //logado: true,
-    drawer: false,
-    menus: [
-      { conteudo: "Home", url: "/", icon: "mdi-home-variant" },
+    menu_upload_csv: [
       {
-        conteudo: "Gestão Usuário",
-        url: "/usuario-crud",
-        icon: "mdi-account-plus",
+        title: "Upload Cidade",
+        to: "/upload-cidade",
       },
       {
-        conteudo: "Upload Cidade",
-        url: "/upload-cidade",
-        icon: "mdi-city",
+        title: "Upload CNAE",
+        to: "/upload-cnae",
       },
       {
-        conteudo: "Upload CNAE",
-        url: "/upload-cnae",
-        icon: "mdi-text-box-multiple",
+        title: "Upload Empresa",
+        to: "/upload-empresa",
       },
       {
-        conteudo: "Upload Empresa",
-        url: "/upload-empresa",
-        icon: "mdi-briefcase",
-      },
-      {
-        conteudo: "Upload Consumo",
-        url: "/upload-consumo",
-        icon: "mdi-chart-bar",
-      },
-      {
-        conteudo: "Carteira/Vendedor",
-        url: "/carteira-vendedor",
-        icon: "mdi-wallet-plus",
+        title: "Upload Consumo",
+        to: "/upload-consumo",
       },
     ],
   }),
-  methods: {
-    cleanStorage() {
-      localStorage.clear();
-      window.location.reload(true);
-    },
-  },
-  watch: {
-    $route(to) {
-      document.title = to.meta.title || "SAS";
-    },
-  },
 };
 </script>
 
-<style>
-/* Largura da barra de rolagem */
-::-webkit-scrollbar {
-  width: 0px;
+<style scoped>
+.text-color {
+  color: #274c77;
 }
 </style>
