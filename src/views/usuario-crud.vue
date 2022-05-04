@@ -4,174 +4,181 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md10>
-            <h1 class="text-center white--text pb-5">GESTÃO USUÁRIO</h1>
-            <v-data-table
-              :headers="headers"
-              :items="lista_de_usuarios"
-              sort-by="calories"
-              class="elevation-1"
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title>CRUD</v-toolbar-title>
-                  <v-divider class="mx-4" inset vertical></v-divider>
-                  <v-spacer></v-spacer>
-                  <v-dialog v-model="dialog" max-width="500px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        dark
-                        class="mb-2"
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        Novo Usuário
-                      </v-btn>
-                    </template>
-                    <v-card color="#415a77">
-                      <v-card-title>
-                        <span class="text-h5 white--text">{{ formTitle }}</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container>
-                          <v-form
-                            ref="form"
-                            v-model="valid"
-                            lazy-validation
-                            @submit="cadastrar_usuario"
+            <h1 class="text-center text-color pb-5">GESTÃO USUÁRIO</h1>
+            <v-card class="pa-1" color="#C0C0C0">
+              <v-card-text>
+                <v-data-table
+                  :headers="headers"
+                  :items="lista_de_usuarios"
+                  sort-by="calories"
+                  class="elevation-1"
+                >
+                  <template v-slot:top>
+                    <v-toolbar flat>
+                      <v-toolbar-title>Gestão de Usuário</v-toolbar-title>
+                      <v-divider class="mx-4" inset vertical></v-divider>
+                      <v-spacer></v-spacer>
+                      <v-dialog v-model="dialog" max-width="500px">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            color="primary"
+                            dark
+                            class="mb-2"
+                            v-bind="attrs"
+                            v-on="on"
                           >
-                            <v-row justify="center">
-                              <v-col cols="24">
-                                <span style="color: white; font-size: 18px"
-                                  >Nome</span
-                                >
-                                <v-text-field
-                                  label="Nome"
-                                  v-model="usuario.nome"
-                                  :rules="regra_nome"
-                                  single-line
-                                  solo
-                                  required
-                                  dense
-                                  background-color="#e0e1dd"
-                                ></v-text-field>
-                              </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                              <v-col cols="24">
-                                <span style="color: white; font-size: 18px"
-                                  >E-mail</span
-                                >
-                                <v-text-field
-                                  label="E-mail"
-                                  v-model="usuario.email"
-                                  :rules="regra_email"
-                                  single-line
-                                  solo
-                                  required
-                                  dense
-                                  background-color="#e0e1dd"
-                                ></v-text-field>
-                              </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                              <v-col cols="24">
-                                <span style="color: white; font-size: 18px"
-                                  >Senha</span
-                                >
-                                <v-text-field
-                                  label="Senha"
-                                  v-model="usuario.senha"
-                                  :rules="regra_senha"
-                                  background-color="#e0e1dd"
-                                  single-line
-                                  solo
-                                  required
-                                  dense
-                                  password
-                                  :append-icon="
-                                    show1 ? 'mdi-eye' : 'mdi-eye-off'
-                                  "
-                                  :type="show1 ? 'text' : 'password'"
-                                  @click:append="show1 = !show1"
-                                ></v-text-field>
-                              </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                              <v-col cols="24">
-                                <span style="color: white; font-size: 18px"
-                                  >Tipo de Acesso</span
-                                >
-                                <v-select
-                                  :items="tipo_acesso"
-                                  label="Tipo de Acesso"
-                                  v-model="usuario.tipoAcesso"
-                                  single-line
-                                  solo
-                                  required
-                                  dense
-                                  background-color="#e0e1dd"
-                                  :rules="[
-                                    (v) =>
-                                      !!v || 'O tipo do usuário é obrigatório',
-                                  ]"
-                                ></v-select>
-                              </v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col></v-col>
-                              <v-col>
-                                <v-btn text color="white" @click="close">
-                                  Cancelar
-                                </v-btn>
-                              </v-col>
-                              <v-col>
-                                <v-btn
-                                  color="#1b263b"
-                                  class="white--text mr-4"
-                                  type="submit"
-                                  :disabled="!valid"
-                                >
-                                  Salvar
-                                </v-btn>
-                              </v-col>
-                            </v-row>
-                          </v-form>
-                        </v-container>
-                      </v-card-text>
-                    </v-card>
-                  </v-dialog>
-                  <v-dialog v-model="dialogDelete" max-width="540px">
-                    <v-card color="#272733">
-                      <v-card-title class="text-h5 white--text"
-                        >Tem certeza de que deseja excluir este
-                        item?</v-card-title
-                      >
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="white" @click="closeDelete">
-                          Cancelar
-                        </v-btn>
-                        <v-btn
-                          color="#C84634"
-                          class="white--text mr-4"
-                          @click="deletar_usuario(usuario)"
-                          >Sim</v-btn
-                        >
-                        <v-spacer></v-spacer>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-toolbar>
-              </template>
-              <!-- <template v-slot:item.actions="{ item }"> -->
-              <template v-slot:[`item.actions`]="{ item }">
-                <v-icon class="mr-2" @click="editar_usuario(item)">
-                  mdi-pencil
-                </v-icon>
-                <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
-              </template>
-            </v-data-table>
+                            Novo Usuário
+                          </v-btn>
+                        </template>
+                        <v-card color="white">
+                          <v-card-title>
+                            <span class="text-h5 text-color">{{
+                              formTitle
+                            }}</span>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-container>
+                              <v-form
+                                ref="form"
+                                v-model="valid"
+                                lazy-validation
+                                @submit="cadastrar_usuario"
+                              >
+                                <v-row justify="center">
+                                  <v-col cols="24">
+                                    <span style="color: #274c77; font-size: 18px"
+                                      >Nome</span
+                                    >
+                                    <v-text-field
+                                      label="Nome"
+                                      v-model="usuario.nome"
+                                      :rules="regra_nome"
+                                      single-line
+                                      solo
+                                      required
+                                      dense
+                                      background-color="#e0e1dd"
+                                    ></v-text-field>
+                                  </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                  <v-col cols="24">
+                                    <span style="color: #274c77; font-size: 18px"
+                                      >E-mail</span
+                                    >
+                                    <v-text-field
+                                      label="E-mail"
+                                      v-model="usuario.email"
+                                      :rules="regra_email"
+                                      single-line
+                                      solo
+                                      required
+                                      dense
+                                      background-color="#e0e1dd"
+                                    ></v-text-field>
+                                  </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                  <v-col cols="24">
+                                    <span style="color: #274c77; font-size: 18px"
+                                      >Senha</span
+                                    >
+                                    <v-text-field
+                                      label="Senha"
+                                      v-model="usuario.senha"
+                                      :rules="regra_senha"
+                                      background-color="#e0e1dd"
+                                      single-line
+                                      solo
+                                      required
+                                      dense
+                                      password
+                                      :append-icon="
+                                        show1 ? 'mdi-eye' : 'mdi-eye-off'
+                                      "
+                                      :type="show1 ? 'text' : 'password'"
+                                      @click:append="show1 = !show1"
+                                    ></v-text-field>
+                                  </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                  <v-col cols="24">
+                                    <span style="color: #274c77; font-size: 18px"
+                                      >Tipo de Acesso</span
+                                    >
+                                    <v-select
+                                      :items="tipo_acesso"
+                                      label="Tipo de Acesso"
+                                      v-model="usuario.tipoAcesso"
+                                      single-line
+                                      solo
+                                      required
+                                      dense
+                                      background-color="#e0e1dd"
+                                      :rules="[
+                                        (v) =>
+                                          !!v ||
+                                          'O tipo do usuário é obrigatório',
+                                      ]"
+                                    ></v-select>
+                                  </v-col>
+                                </v-row>
+                                <v-row>
+                                  <v-col></v-col>
+                                  <v-col>
+                                    <v-btn text color="#274c77" @click="close">
+                                      Cancelar
+                                    </v-btn>
+                                  </v-col>
+                                  <v-col>
+                                    <v-btn
+                                      color="#1b263b"
+                                      class="white--text mr-4"
+                                      type="submit"
+                                      :disabled="!valid"
+                                    >
+                                      Salvar
+                                    </v-btn>
+                                  </v-col>
+                                </v-row>
+                              </v-form>
+                            </v-container>
+                          </v-card-text>
+                        </v-card>
+                      </v-dialog>
+                      <v-dialog v-model="dialogDelete" max-width="540px">
+                        <v-card color="#272733">
+                          <v-card-title class="text-h5 white--text"
+                            >Tem certeza de que deseja excluir este
+                            item?</v-card-title
+                          >
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="white" @click="closeDelete">
+                              Cancelar
+                            </v-btn>
+                            <v-btn
+                              color="#C84634"
+                              class="white--text mr-4"
+                              @click="deletar_usuario(usuario)"
+                              >Sim</v-btn
+                            >
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-toolbar>
+                  </template>
+                  <!-- <template v-slot:item.actions="{ item }"> -->
+                  <template v-slot:[`item.actions`]="{ item }">
+                    <v-icon class="mr-2" @click="editar_usuario(item)">
+                      mdi-pencil
+                    </v-icon>
+                    <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
+                  </template>
+                </v-data-table>
+              </v-card-text>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -380,6 +387,9 @@ export default {
 
 <style>
 #usuario-crud {
-  background-color: #0d1b2a;
+  background-color: white;
+}
+.text-color {
+  color: #274c77;
 }
 </style>
