@@ -65,10 +65,25 @@ export default {
       },
     ],
   }),
+  methods: {
+    cleanStorage() {
+      localStorage.clear();
+      window.location.reload(true);
+    },
+  },
+  watch: {
+    $route(to) {
+      document.title = to.meta.title || "SAS";
+    },
+  },
 };
 </script>
 
 <style scoped>
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 0px;
+}
 .text-color {
   color: #274c77;
 }
