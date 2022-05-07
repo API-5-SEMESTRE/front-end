@@ -2,7 +2,7 @@ import { http } from "./config";
 
 export default {
     listar_usuarios: () => {
-        return http.get(`usuario/todos-usuarios`);
+        return http.get(`usuario/todos`);
     },
     salvar_usuario: (usuario) => {
         return http.post(`usuario/cadastrar`, usuario);
