@@ -146,6 +146,9 @@ export default {
 #upload-csv {
   background-color: white;
 }
+.text-color {
+  color: #274c77;
+}
 #botao-enviar {
   margin-top: 20px;
 }
