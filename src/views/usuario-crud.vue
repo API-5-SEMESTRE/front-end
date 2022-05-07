@@ -147,14 +147,14 @@
                         </v-card>
                       </v-dialog>
                       <v-dialog v-model="dialogDelete" max-width="540px">
-                        <v-card color="#272733">
-                          <v-card-title class="text-h5 white--text"
+                        <v-card color="white">
+                          <v-card-title class="text-h5 text-color"
                             >Tem certeza de que deseja excluir este
                             item?</v-card-title
                           >
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn text color="white" @click="closeDelete">
+                            <v-btn text color="#274c77" @click="closeDelete">
                               Cancelar
                             </v-btn>
                             <v-btn
