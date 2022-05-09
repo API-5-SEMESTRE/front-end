@@ -4,175 +4,187 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md10>
-            <h1 class="text-center white--text">GESTÃO CARTEIRA VENDEDOR</h1>
+            <h1 class="text-center text-color">GESTÃO CARTEIRA VENDEDOR</h1>
             <div class="pt-5">
               <v-row>
                 <v-col>
-                  <v-card color="#415a77">
-                    <v-card-text>
-                      <span style="color: white; font-size: 18px"
-                        >CADASTRAR CARTEIRA/VENDEDOR</span
-                      >
-                      <v-container>
-                        <v-form
-                          ref="form"
-                          v-model="validCadastro"
-                          lazy-validation
-                          @submit="cadastrar_carteira(carteira)"
+                  <v-card class="pa-3" color="#C0C0C0">
+                    <v-card color="white">
+                      <v-card-text>
+                        <span class="text-color" style="font-size: 18px"
+                          >CADASTRAR CARTEIRA/VENDEDOR</span
                         >
-                          <v-row justify="center">
-                            <v-col cols="24">
-                              <span style="color: white; font-size: 18px"
-                                >Usuário</span
-                              >
-                              <v-text-field
-                                label="ID Usuário"
-                                v-model="carteira.id"
-                                :rules="regra_usuario"
-                                single-line
-                                solo
-                                required
-                                dense
-                                background-color="#e0e1dd"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
-                          <v-row justify="center">
-                            <v-col cols="24">
-                              <span style="color: white; font-size: 18px"
-                                >Empresa</span
-                              >
-                              <v-text-field
-                                label="CNPJ Empresa"
-                                v-model="carteira.cnpj"
-                                :rules="regra_empresa"
-                                single-line
-                                solo
-                                required
-                                dense
-                                background-color="#e0e1dd"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col></v-col>
-                            <v-col> </v-col>
-                            <v-col>
-                              <v-btn
-                                color="#1b263b"
-                                class="white--text mr-4"
-                                type="submit"
-                                :disabled="!validCadastro"
-                              >
-                                Salvar
-                              </v-btn>
-                            </v-col>
-                          </v-row>
-                        </v-form>
-                      </v-container>
-                    </v-card-text>
+                        <v-container>
+                          <v-form
+                            ref="form"
+                            v-model="validCadastro"
+                            lazy-validation
+                            @submit="cadastrar_carteira(carteira)"
+                          >
+                            <v-row justify="center">
+                              <v-col cols="24">
+                                <span class="text-color" style="font-size: 18px"
+                                  >Usuário</span
+                                >
+                                <v-text-field
+                                  label="ID Usuário"
+                                  v-model="carteira.id"
+                                  :rules="regra_usuario"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                ></v-text-field>
+                              </v-col>
+                            </v-row>
+                            <v-row justify="center">
+                              <v-col cols="24">
+                                <span class="text-color" style="font-size: 18px"
+                                  >Empresa</span
+                                >
+                                <v-text-field
+                                  label="CNPJ Empresa"
+                                  v-model="carteira.cnpj"
+                                  :rules="regra_empresa"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                ></v-text-field>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col></v-col>
+                              <v-col> </v-col>
+                              <v-col>
+                                <v-btn
+                                  color="primary"
+                                  class="mr-4"
+                                  type="submit"
+                                  :disabled="!validCadastro"
+                                >
+                                  Salvar
+                                </v-btn>
+                              </v-col>
+                            </v-row>
+                          </v-form>
+                        </v-container>
+                      </v-card-text>
+                    </v-card>
                   </v-card>
                 </v-col>
                 <v-col>
                   <v-row>
                     <v-col>
-                      <v-card color="#415a77">
-                        <v-card-text>
-                          <span style="color: white; font-size: 18px"
-                            >PESQUISAR CARTEIRA/VENDEDOR</span
-                          >
-                          <v-container>
-                            <v-form
-                              ref="form"
-                              v-model="validPesquisa"
-                              lazy-validation
-                              @submit="pesquisar_carteira"
+                      <v-card class="pa-3" color="#C0C0C0">
+                        <v-card color="white">
+                          <v-card-text>
+                            <span class="text-color" style="font-size: 18px"
+                              >PESQUISAR CARTEIRA/VENDEDOR</span
                             >
-                              <v-row justify="center">
-                                <v-col cols="24">
-                                  <span style="color: white; font-size: 18px"
-                                    >Usuário</span
-                                  >
-                                  <v-text-field
-                                    label="ID Usuário"
-                                    v-model="carteira_usuario.id"
-                                    :rules="regra_usuario"
-                                    single-line
-                                    solo
-                                    required
-                                    dense
-                                    background-color="#e0e1dd"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col></v-col>
-                                <v-col> </v-col>
-                                <v-col>
-                                  <v-btn
-                                    color="#1b263b"
-                                    class="white--text mr-4"
-                                    type="submit"
-                                    :disabled="!validPesquisa"
-                                  >
-                                    Pesquisar
-                                  </v-btn>
-                                </v-col>
-                              </v-row>
-                            </v-form>
-                          </v-container>
-                        </v-card-text>
+                            <v-container>
+                              <v-form
+                                ref="form"
+                                v-model="validPesquisa"
+                                lazy-validation
+                                @submit="pesquisar_carteira"
+                              >
+                                <v-row justify="center">
+                                  <v-col cols="24">
+                                    <span
+                                      class="text-color"
+                                      style="font-size: 18px"
+                                      >Usuário</span
+                                    >
+                                    <v-text-field
+                                      label="ID Usuário"
+                                      v-model="carteira_usuario.id"
+                                      :rules="regra_usuario"
+                                      single-line
+                                      solo
+                                      required
+                                      dense
+                                      background-color="#e0e1dd"
+                                    ></v-text-field>
+                                  </v-col>
+                                </v-row>
+                                <v-row>
+                                  <v-col></v-col>
+                                  <v-col> </v-col>
+                                  <v-col>
+                                    <v-btn
+                                      color="primary"
+                                      class="mr-4"
+                                      type="submit"
+                                      :disabled="!validPesquisa"
+                                    >
+                                      Pesquisar
+                                    </v-btn>
+                                  </v-col>
+                                </v-row>
+                              </v-form>
+                            </v-container>
+                          </v-card-text>
+                        </v-card>
                       </v-card>
                     </v-col>
                   </v-row>
+                </v-col>
+                <v-col>
                   <v-row>
                     <v-col>
-                      <v-card color="#415a77">
-                        <v-card-text>
-                          <span style="color: white; font-size: 18px"
-                            >DELETAR CARTEIRA/VENDEDOR</span
-                          >
-                          <v-container>
-                            <v-form
-                              ref="form"
-                              v-model="validDeletar"
-                              lazy-validation
-                              @submit="deletar_carteira"
+                      <v-card class="pa-3" color="#C0C0C0">
+                        <v-card color="white">
+                          <v-card-text>
+                            <span class="text-color" style="font-size: 18px"
+                              >DELETAR CARTEIRA/VENDEDOR</span
                             >
-                              <v-row justify="center">
-                                <v-col cols="24">
-                                  <span style="color: white; font-size: 18px"
-                                    >CNPJ</span
-                                  >
-                                  <v-text-field
-                                    label="CNPJ"
-                                    v-model="carteira_deletar.cnpj"
-                                    :rules="regra_cnpj"
-                                    single-line
-                                    solo
-                                    required
-                                    dense
-                                    background-color="#e0e1dd"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col></v-col>
-                                <v-col> </v-col>
-                                <v-col>
-                                  <v-btn
-                                    color="#1b263b"
-                                    class="white--text mr-4"
-                                    type="submit"
-                                    :disabled="!validDeletar"
-                                  >
-                                    Deletar
-                                  </v-btn>
-                                </v-col>
-                              </v-row>
-                            </v-form>
-                          </v-container>
-                        </v-card-text>
+                            <v-container>
+                              <v-form
+                                ref="form"
+                                v-model="validDeletar"
+                                lazy-validation
+                                @submit="deletar_carteira"
+                              >
+                                <v-row justify="center">
+                                  <v-col cols="24">
+                                    <span
+                                      class="text-color"
+                                      style="font-size: 18px"
+                                      >CNPJ</span
+                                    >
+                                    <v-text-field
+                                      label="CNPJ"
+                                      v-model="carteira_deletar.cnpj"
+                                      :rules="regra_cnpj"
+                                      single-line
+                                      solo
+                                      required
+                                      dense
+                                      background-color="#e0e1dd"
+                                    ></v-text-field>
+                                  </v-col>
+                                </v-row>
+                                <v-row>
+                                  <v-col></v-col>
+                                  <v-col> </v-col>
+                                  <v-col>
+                                    <v-btn
+                                      color="primary"
+                                      class="mr-4"
+                                      type="submit"
+                                      :disabled="!validDeletar"
+                                    >
+                                      Deletar
+                                    </v-btn>
+                                  </v-col>
+                                </v-row>
+                              </v-form>
+                            </v-container>
+                          </v-card-text>
+                        </v-card>
                       </v-card>
                     </v-col>
                   </v-row>
@@ -182,22 +194,24 @@
             <div class="pt-10">
               <v-row>
                 <v-col>
-                  <v-data-table
-                    :headers="headersCarteiraVendedor"
-                    :items="lista_de_carteira"
-                    sort-by="calories"
-                    class="elevation-1"
-                  >
-                    <template v-slot:top>
-                      <v-toolbar flat>
-                        <v-toolbar-title>CARTEIRA/VENDEDOR</v-toolbar-title>
-                      </v-toolbar>
-                    </template>
-                  </v-data-table>
+                  <v-card class="pa-3" color="#C0C0C0">
+                    <v-data-table
+                      :headers="headersCarteiraVendedor"
+                      :items="lista_de_carteira"
+                      sort-by="calories"
+                      class="elevation-1"
+                    >
+                      <template v-slot:top>
+                        <v-toolbar flat>
+                          <v-toolbar-title>CARTEIRA/VENDEDOR</v-toolbar-title>
+                        </v-toolbar>
+                      </template>
+                    </v-data-table>
+                  </v-card>
                 </v-col>
               </v-row>
             </div>
-            <div class="pt-10">
+            <!-- <div class="pt-10">
               <v-row>
                 <v-col>
                   <v-data-table
@@ -216,7 +230,7 @@
                 <v-col>
                   <div>
                     <v-card>
-                      <!-- <v-data-table
+                      <v-data-table
                         v-for="item in lista_de_empresas"
                         :key="item.id"
                         :items="item"
@@ -226,7 +240,7 @@
                             <v-toolbar-title>USUÁRIOS</v-toolbar-title>
                           </v-toolbar>
                         </template>
-                      </v-data-table> -->
+                      </v-data-table>
                       <v-simple-table>
                         <thead>
                           <tr>
@@ -243,7 +257,7 @@
                   </div>
                 </v-col>
               </v-row>
-            </div>
+            </div> -->
           </v-flex>
         </v-layout>
       </v-container>
@@ -424,6 +438,9 @@ export default {
 
 <style>
 #carteira-vendedor {
-  background-color: #0d1b2a;
+  background-color: white;
+}
+.text-color {
+  color: #274c77;
 }
 </style>
