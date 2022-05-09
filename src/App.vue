@@ -2,6 +2,15 @@
   <v-app dark>
     <!-- MENU DESKTOP -->
     <v-app-bar hide-on-scroll app color="#E7ECEF" dark height="80px">
+      <v-img
+        alt="Logo Top Motors Auto"
+        class="shrink mt-1 hidden-sm-and-down"
+        contain
+        src="@/assets/sas.png"
+        width="80"
+        height="60"
+        transition="scale-transition"
+      />
       <v-toolbar-title class="text-h6 text-color"
         >SAS - SCORE ANALYSUS SYSTEM
       </v-toolbar-title>
