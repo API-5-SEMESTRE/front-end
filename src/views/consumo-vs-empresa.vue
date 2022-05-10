@@ -93,16 +93,30 @@
                         </v-col>
                       </v-row>
                       <v-row>
+                          <v-col>
+                          <div id="btn">
+                            <v-form ref="form" lazy-validation>
+                              <v-btn
+                                color="primary"
+                                class="mr-4"
+                                @click="gerarGraficoConsumoVs2CnpjPDF(consumo2)"
+                                id="botao-enviar"
+                              >
+                                Download PDF
+                              </v-btn>
+                            </v-form>
+                          </div>
+                        </v-col>
                         <v-col>
                           <div id="btn">
                             <v-form ref="form" lazy-validation>
                               <v-btn
                                 color="primary"
                                 class="mr-4"
-                                @click="gerarGraficoConsumoVs2Cnpj(consumo2)"
+                                @click="gerarGraficoConsumoVs2CnpjPNG(consumo2)"
                                 id="botao-enviar"
                               >
-                                Pesquisar
+                                Download PNG
                               </v-btn>
                             </v-form>
                           </div>
@@ -190,7 +204,32 @@ export default {
           );
         });
     },
-    gerarGraficoConsumoVs2Cnpj(consumo2) {
+    gerarGraficoConsumoVs2CnpjPDF(consumo2) {
+      axios({
+        url: `http://localhost:5000/graphs/consumo/${consumo2.cnpj1}/${consumo2.cnpj2}/pdf`,
+        method: "GET",
+        responseType: "blob",
+      })
+        .then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileURL;
+          fileLink.setAttribute(
+            "download",
+            `consumo-empresa-${consumo2.cnpj1}-${consumo2.cnpj2}.pdf`
+          );
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
+    },
+    gerarGraficoConsumoVs2CnpjPNG(consumo2) {
       axios({
         url: `http://localhost:5000/graphs/consumo/${consumo2.cnpj1}/${consumo2.cnpj2}`,
         method: "GET",
