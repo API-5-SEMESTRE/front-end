@@ -40,6 +40,12 @@ const routes = [
     meta: { title: 'Carteira Vendedor' },
     component: () => import('../views/carteira-vendedor.vue')
   },
+  {
+    path: '/consumo-vs-empresa',
+    name: 'Consumo VS Empresa',
+    meta: { title: 'Consumo VS Empresa' },
+    component: () => import('../views/consumo-vs-empresa.vue')
+  },
 ]
 
 const router = new VueRouter({
