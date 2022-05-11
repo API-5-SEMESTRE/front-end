@@ -297,31 +297,6 @@ export default {
             this.lista_score_vendedores.push(item);
           });
           console.log(this.lista_score_vendedores);
-
-          // response.data.forEach((item) => {
-          //   this.lista_nome_vendedores.push(item.vendedor.id);
-          //   console.log(this.lista_nome_vendedores);
-          // });
-          // response.data.forEach((item) => {
-          //   this.lista_score_vendedores.push(item.score);
-          // });
-
-          // this.lista_nome_vendedores = this.chartData.map(function (e) {
-          //   return e.vendedor.id;
-          // });
-
-          // this.chartData.labels = this.lista_nome_vendedores;
-
-          // this.lista_score_vendedores = this.chartData.map(function (e) {
-          //   return e.score;
-          // });
-
-          // console.log(
-          //   "Print lista_nome_vendedores - " + this.lista_nome_vendedores
-          // );
-          // console.log(
-          //   "Print lista_score_vendedores - " + this.lista_score_vendedores
-          // );
           this.loaded = true;
         })
         .catch((e) => {
@@ -338,7 +313,6 @@ export default {
   methods: {
     gerarGrafico() {
       Axios({
-        // url: `http://localhost:8080/usuario/ranking-vendedor/`,
         url: "http://localhost:8080/consumo/lista-consumo-empresa/11924000193",
         method: "GET",
       }).then((response) => {
@@ -351,37 +325,6 @@ export default {
         });
         console.log(this.lista_mes_referencia);
 
-        // this.lista_nome_vendedores = [
-        //   {
-        //     x: this.lista_nome_vendedores[0],
-        //     y: this.this.lista_score_vendedores[0],
-        //   },
-        //   {
-        //     x: this.lista_nome_vendedores[1],
-        //     y: this.this.lista_score_vendedores[1],
-        //   },
-        //   {
-        //     x: this.lista_nome_vendedores[2],
-        //     y: this.this.lista_score_vendedores[2],
-        //   },
-        // ];
-
-        // this.lista_nome_vendedores = this.chartData.map(function (e) {
-        //   return e.vendedor.nome;
-        // });
-
-        // this.chartData.labels = this.lista_nome_vendedores;
-
-        // this.lista_score_vendedores = this.chartData.map(function (e) {
-        //   return e.score;
-        // });
-
-        // console.log(
-        //   "Print lista_nome_vendedores - " + this.lista_nome_vendedores
-        // );
-        // console.log(
-        //   "Print lista_score_vendedores - " + this.lista_score_vendedores
-        // );
         this.loaded = true;
       });
     },
