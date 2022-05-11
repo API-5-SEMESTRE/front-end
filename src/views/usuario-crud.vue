@@ -46,7 +46,8 @@
                               >
                                 <v-row justify="center">
                                   <v-col cols="24">
-                                    <span style="color: #274c77; font-size: 18px"
+                                    <span
+                                      style="color: #274c77; font-size: 18px"
                                       >Nome</span
                                     >
                                     <v-text-field
@@ -63,7 +64,8 @@
                                 </v-row>
                                 <v-row justify="center">
                                   <v-col cols="24">
-                                    <span style="color: #274c77; font-size: 18px"
+                                    <span
+                                      style="color: #274c77; font-size: 18px"
                                       >E-mail</span
                                     >
                                     <v-text-field
@@ -80,7 +82,8 @@
                                 </v-row>
                                 <v-row justify="center">
                                   <v-col cols="24">
-                                    <span style="color: #274c77; font-size: 18px"
+                                    <span
+                                      style="color: #274c77; font-size: 18px"
                                       >Senha</span
                                     >
                                     <v-text-field
@@ -103,7 +106,8 @@
                                 </v-row>
                                 <v-row justify="center">
                                   <v-col cols="24">
-                                    <span style="color: #274c77; font-size: 18px"
+                                    <span
+                                      style="color: #274c77; font-size: 18px"
                                       >Tipo de Acesso</span
                                     >
                                     <v-select
@@ -183,15 +187,27 @@
         </v-layout>
       </v-container>
     </v-main>
+    <!-- <v-btn color="primary" dark class="mb-2 pt-5 pb-5 mx-auto" @click="gerarGrafico()" max-width="200">
+      gerar grafico
+    </v-btn> -->
+    <BarChart
+      :lista_vendedor="this.lista_nome_vendedores"
+      :lista_score="this.lista_score_vendedores"
+    />
   </v-app>
 </template>
 
 <script>
 import Usuario from "../services/usuario";
 import Swal from "sweetalert2";
+import BarChart from "../components/GraficoRankingVendedor.vue";
+import Axios from "axios";
 export default {
   name: "usuario-crud",
+  components: { BarChart },
   data: () => ({
+    lista_nome_vendedores: [],
+    lista_score_vendedores: [],
     // Criando o objeto que vai ser feito o POST
     usuario: {
       id: "",
@@ -232,22 +248,6 @@ export default {
       { text: "Tipo acesso", value: "tipoAcesso" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
   }),
   computed: {
     formTitle() {
@@ -262,11 +262,106 @@ export default {
       val || this.closeDelete();
     },
   },
-  mounted() {
-    // Chamando o método exibir_usuario()
+  // mounted() {
+  //   // Chamando o método exibir_usuario()
+  //   this.exibir_usuario();
+  // },
+  async mounted() {
     this.exibir_usuario();
+    this.loaded = false;
+    try {
+      Axios({
+        url: `http://localhost:8080/usuario/ranking-vendedor/`,
+        method: "GET",
+      })
+        .then((response) => {
+          Object.keys(response.data).forEach((item) => {
+            this.lista_nome_vendedores.push(item);
+          });
+          console.log(this.lista_nome_vendedores);
+          Object.values(response.data).forEach((item) => {
+            this.lista_score_vendedores.push(item);
+          });
+          console.log(this.lista_score_vendedores);
+
+          // response.data.forEach((item) => {
+          //   this.lista_nome_vendedores.push(item.vendedor.id);
+          //   console.log(this.lista_nome_vendedores);
+          // });
+          // response.data.forEach((item) => {
+          //   this.lista_score_vendedores.push(item.score);
+          // });
+
+          // this.lista_nome_vendedores = this.chartData.map(function (e) {
+          //   return e.vendedor.id;
+          // });
+
+          // this.chartData.labels = this.lista_nome_vendedores;
+
+          // this.lista_score_vendedores = this.chartData.map(function (e) {
+          //   return e.score;
+          // });
+
+          // console.log(
+          //   "Print lista_nome_vendedores - " + this.lista_nome_vendedores
+          // );
+          // console.log(
+          //   "Print lista_score_vendedores - " + this.lista_score_vendedores
+          // );
+          this.loaded = true;
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
+    } catch (e) {
+      console.error(e);
+    }
   },
   methods: {
+    // gerarGrafico() {
+    //   Axios({
+    //     // url: `http://localhost:8080/usuario/ranking-vendedor/`,
+    //     url: "http://localhost:8080/consumo/lista-consumo-vendedor/69",
+    //     method: "GET",
+    //   }).then((response) => {
+    //     response.data.forEach((item) => {
+    //       this.lista_nome_vendedores.push(item.quantidadeConsumo);
+    //       console.log(this.lista_nome_vendedores);
+    //     });
+    //     response.data.forEach((item) => {
+    //       this.lista_score_vendedores.push(item.mesReferencia);
+    //       console.log(this.lista_score_vendedores);
+    //     });
+
+    //     this.lista_nome_vendedores= [
+    //       {x: this.lista_nome_vendedores[0], y: this.this.lista_score_vendedores[0]},
+    //       {x: this.lista_nome_vendedores[1], y: this.this.lista_score_vendedores[1]},
+    //       {x: this.lista_nome_vendedores[2], y: this.this.lista_score_vendedores[2]},
+    //     ];
+
+    //     this.lista_nome_vendedores = this.chartData.map(function (e) {
+    //       return e.vendedor.nome;
+    //     });
+
+    //     this.chartData.labels = this.lista_nome_vendedores;
+
+    //     this.lista_score_vendedores = this.chartData.map(function (e) {
+    //       return e.score;
+    //     });
+
+    //     console.log(
+    //       "Print lista_nome_vendedores - " + this.lista_nome_vendedores
+    //     );
+    //     console.log(
+    //       "Print lista_score_vendedores - " + this.lista_score_vendedores
+    //     );
+    //     this.loaded = true;
+    //   });
+    // },
     // Método de cadastro de usuario
     cadastrar_usuario() {
       // Se o usuario não tiver um "id" significa que esse usuario não existe então ele vai pra resquest de cadastro
