@@ -16,8 +16,6 @@
 
 <script>
 import { Bar } from "vue-chartjs/legacy";
-// import Axios from "axios";
-// import Swal from "sweetalert2";
 
 import {
   Chart as ChartJS,
@@ -80,11 +78,6 @@ export default {
       loaded: false,
       chartData: {
         labels: props.lista_vendedor,
-        // labels: [
-        //   "Vendedor 1",
-        //   "Vendedor 2",
-        //   "Vendedor 3",
-        // ],
         datasets: [
           {
             label: "Consumo",
@@ -99,71 +92,5 @@ export default {
       },
     };
   },
-  // async mounted() {
-  //   this.loaded = false;
-
-  //   try {
-  //     Axios({
-  //       url: `http://localhost:8080/usuario/ranking-vendedor/`,
-  //       method: "GET",
-  //     }).then((response) => {
-  //       this.chartData = response.data;
-
-  //       this.lista_nome_vendedores = this.chartData.map(function (e) {
-  //         return e.vendedor.nome;
-  //       });
-
-  //       this.chartData.labels = this.lista_nome_vendedores;
-
-  //       this.lista_score_vendedores = this.chartData.map(function (e) {
-  //         return e.score;
-  //       });
-
-  //       console.log(
-  //         "Print lista_nome_vendedores - " + this.lista_nome_vendedores
-  //       );
-  //       console.log(
-  //         "Print lista_score_vendedores - " + this.lista_score_vendedores
-  //       );
-  //       this.loaded = true;
-  //     });
-  //     // .catch((e) => {
-  //     //   Swal.fire(
-  //     //     "Oops...",
-  //     //     "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
-  //     //     "error"
-  //     //   );
-  //     // });
-
-  //     //   const { userlist } = await fetch(
-  //     //     "http://localhost:8080/usuario/ranking-vendedor/"
-  //     //   );
-  //     //   console.log(this.userlist.data);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // },
-  // mounted() {
-  //   this.gerarGraficoRankingVendedores();
-  // },
-  // methods: {
-  //   gerarGraficoRankingVendedores() {
-  //     axios({
-  //       url: `http://localhost:8080/usuario/ranking-vendedor/`,
-  //       method: "GET",
-  //     })
-  //       .then((response) => {
-  //         this.lista_ranking_vendedores = response.data;
-  //         console.log(this.lista_ranking_vendedores);
-  //       })
-  //       .catch((e) => {
-  //         Swal.fire(
-  //           "Oops...",
-  //           "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
-  //           "error"
-  //         );
-  //       });
-  //   },
-  // },
 };
 </script>
