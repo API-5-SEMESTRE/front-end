@@ -9,8 +9,8 @@
     :styles="styles"
     :width="width"
     :height="height"
-    :lista_vendedores="lista_nome_vendedores"
-    :lista_score="lista_score_vendedores"
+    :lista_vendedor="this.lista_nome_vendedores"
+    :lista_score="this.lista_score_vendedores"
   />
 </template>
 
@@ -44,7 +44,7 @@ export default {
     Bar,
   },
   props: {
-    lista_vendedores: [],
+    lista_vendedor: [],
     lista_score: [],
     chartId: {
       type: String,
@@ -79,7 +79,7 @@ export default {
     return {
       loaded: false,
       chartData: {
-        labels: props.lista_score,
+        labels: props.lista_vendedor,
         // labels: [
         //   "Vendedor 1",
         //   "Vendedor 2",
