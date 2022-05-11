@@ -44,6 +44,24 @@
               </v-list>
             </v-menu>
           </div>
+          <div class="text-center">
+            <v-menu open-on-hover bottom offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="#274c77" text dark v-bind="attrs" v-on="on">
+                  Relatórios
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in menu_relatorios"
+                  :key="index"
+                  :to="item.to"
+                >
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </div>
       </template>
     </v-app-bar>
@@ -72,6 +90,24 @@ export default {
         title: "Upload Consumo",
         to: "/upload-consumo",
       },
+    ],
+    menu_relatorios: [
+      {
+        title: "Consumo VS Empresa",
+        to: "/consumo-vs-empresa",
+      },
+      // {
+      //   title: "Upload CNAE",
+      //   to: "/upload-cnae",
+      // },
+      // {
+      //   title: "Upload Empresa",
+      //   to: "/upload-empresa",
+      // },
+      // {
+      //   title: "Upload Consumo",
+      //   to: "/upload-consumo",
+      // },
     ],
   }),
   methods: {
