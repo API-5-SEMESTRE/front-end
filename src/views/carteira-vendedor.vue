@@ -258,6 +258,13 @@
                 </v-col>
               </v-row>
             </div> -->
+            <div class="pt-10">
+              <h2>Ranking dos melhores vendedores</h2>
+              <BarChart
+                :lista_vendedor="this.lista_nome_vendedores"
+                :lista_score="this.lista_score_vendedores"
+              />
+            </div>
           </v-flex>
         </v-layout>
       </v-container>
@@ -269,10 +276,17 @@
 import Usuario from "../services/usuario";
 import Empresa from "../services/empresa";
 import Swal from "sweetalert2";
+import Axios from "axios";
+import BarChart from "../components/GraficoRankingVendedor.vue";
 
 export default {
   name: "carteira-vendedor",
+  components: { BarChart },
   data: () => ({
+    // Variaveis do grafico de ranking de vendedores
+    lista_nome_vendedores: [],
+    lista_score_vendedores: [],
+
     regra_usuario: [(v) => !!v || "O USUÁRIO é obrigatório"],
     regra_empresa: [(v) => !!v || "A EMPRESA é obrigatório"],
     regra_cnpj: [(v) => !!v || "O CNPJ é obrigatório"],
@@ -326,10 +340,36 @@ export default {
       { text: "Data de cadastro", value: "dataDeCadastroVendedor" },
     ],
   }),
-  mounted() {
-    // Chamando o método exibir_usuario()
-    this.exibir_usuario();
-    this.exibir_empresa();
+  async mounted() {
+    // this.exibir_usuario();
+    // this.exibir_empresa();
+    this.loaded = false;
+    try {
+      Axios({
+        url: `http://localhost:8080/usuario/ranking-vendedor/`,
+        method: "GET",
+      })
+        .then((response) => {
+          Object.keys(response.data).forEach((item) => {
+            this.lista_nome_vendedores.push(item);
+          });
+          console.log(this.lista_nome_vendedores);
+          Object.values(response.data).forEach((item) => {
+            this.lista_score_vendedores.push(item);
+          });
+          console.log(this.lista_score_vendedores);
+          this.loaded = true;
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
+    } catch (e) {
+      console.error(e);
+    }
   },
   methods: {
     // Método de cadastro de usuario
