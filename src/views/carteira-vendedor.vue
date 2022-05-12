@@ -260,6 +260,22 @@
             </div> -->
             <div class="pt-10">
               <h2>Ranking dos melhores vendedores</h2>
+              <v-btn
+                color="primary"
+                class="mr-4"
+                @click="downloadGraficoRankingVendedoresPNG()"
+                id="botao-enviar"
+              >
+                Download PNG
+              </v-btn>
+              <v-btn
+                color="primary"
+                class="mr-4"
+                @click="downloadGraficoRankingVendedoresPDF()"
+                id="botao-enviar"
+              >
+                Download PDF
+              </v-btn>
               <BarChart
                 :lista_vendedor="this.lista_nome_vendedores"
                 :lista_score="this.lista_score_vendedores"
@@ -372,6 +388,50 @@ export default {
     }
   },
   methods: {
+    downloadGraficoRankingVendedoresPNG() {
+      Axios({
+        url: `http://127.0.0.1:5000/graph/ranking-top3/`,
+        method: "GET",
+        responseType: "blob",
+      })
+        .then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", `ranking-top-3.png`);
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
+    },
+    downloadGraficoRankingVendedoresPDF() {
+      Axios({
+        url: `http://127.0.0.1:5000/graph/ranking-top3/pdf`,
+        method: "GET",
+        responseType: "blob",
+      })
+        .then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", `ranking-top-3.pdf`);
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })
+        .catch((e) => {
+          Swal.fire(
+            "Oops...",
+            "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+            "error"
+          );
+        });
+    },
     // Método de cadastro de usuario
     cadastrar_carteira() {
       Usuario.listar_carteira(this.carteira).then((resposta_lista_carteira) => {
