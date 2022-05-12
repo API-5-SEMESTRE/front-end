@@ -240,6 +240,8 @@ export default {
   }),
 
   methods: {
+    // 32034536000114
+    // 19072238000150
     gerarGraficoConsumoVsCnpjFront(consumo1) {
       Axios({
         url: `http://localhost:8080/consumo/lista-consumo-empresa/${consumo1.cnpj}`,
@@ -249,8 +251,18 @@ export default {
           this.lista_quantidade_consumo.push(item.quantidadeConsumo);
         });
         console.log(this.lista_quantidade_consumo);
+
         response.data.forEach((item) => {
-          this.lista_mes_referencia.push(item.mesReferencia);
+          function adicionaZero(numero) {
+            if (numero <= 9) return "0" + numero;
+            else return numero;
+          }
+          let data = new Date(item.mesReferencia);
+          let dataFormatada =
+            adicionaZero(data.getMonth() + 1).toString() +
+            "/" +
+            data.getFullYear();
+          this.lista_mes_referencia.push(dataFormatada);
         });
         console.log(this.lista_mes_referencia);
 
@@ -270,8 +282,18 @@ export default {
           this.lista_quantidade_consumo1.push(item.quantidadeConsumo);
         });
         console.log(this.lista_quantidade_consumo1);
+
         response.data.forEach((item) => {
-          this.lista_mes_referencia1.push(item.mesReferencia);
+          function adicionaZero(numero) {
+            if (numero <= 9) return "0" + numero;
+            else return numero;
+          }
+          let data = new Date(item.mesReferencia);
+          let dataFormatada =
+            adicionaZero(data.getMonth() + 1).toString() +
+            "/" +
+            data.getFullYear();
+          this.lista_mes_referencia1.push(dataFormatada);
         });
         console.log(this.lista_mes_referencia1);
 
@@ -287,8 +309,18 @@ export default {
           this.lista_quantidade_consumo2.push(item.quantidadeConsumo);
         });
         console.log(this.lista_quantidade_consumo2);
+
         response.data.forEach((item) => {
-          this.lista_mes_referencia2.push(item.mesReferencia);
+          function adicionaZero(numero) {
+            if (numero <= 9) return "0" + numero;
+            else return numero;
+          }
+          let data = new Date(item.mesReferencia);
+          let dataFormatada =
+            adicionaZero(data.getMonth() + 1).toString() +
+            "/" +
+            data.getFullYear();
+          this.lista_mes_referencia2.push(dataFormatada);
         });
         console.log(this.lista_mes_referencia2);
 
