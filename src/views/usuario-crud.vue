@@ -187,41 +187,16 @@
         </v-layout>
       </v-container>
     </v-main>
-    <BarChart
-      :lista_vendedor="this.lista_nome_vendedores"
-      :lista_score="this.lista_score_vendedores"
-    />
-    <v-btn
-      color="primary"
-      dark
-      class="mb-2 pt-5 pb-5 mx-auto"
-      @click="gerarGrafico()"
-      max-width="200"
-    >
-      gerar grafico
-    </v-btn>
-    <LineChart
-      :lista_consumo="this.lista_quantidade_consumo"
-      :lista_mes="this.lista_mes_referencia"
-    />
   </v-app>
 </template>
 
 <script>
 import Usuario from "../services/usuario";
 import Swal from "sweetalert2";
-import BarChart from "../components/GraficoRankingVendedor.vue";
-import LineChart from "../components/Line.vue";
-import Axios from "axios";
+
 export default {
   name: "usuario-crud",
-  components: { BarChart, LineChart },
   data: () => ({
-    lista_nome_vendedores: [],
-    lista_score_vendedores: [],
-    lista_quantidade_consumo: [],
-    lista_mes_referencia: [],
-
     // Criando o objeto que vai ser feito o POST
     usuario: {
       id: "",
@@ -276,58 +251,11 @@ export default {
       val || this.closeDelete();
     },
   },
-  // mounted() {
-  //   // Chamando o método exibir_usuario()
-  //   this.exibir_usuario();
-  // },
-  async mounted() {
+  mounted() {
+    // Chamando o método exibir_usuario()
     this.exibir_usuario();
-    this.loaded = false;
-    try {
-      Axios({
-        url: `http://localhost:8080/usuario/ranking-vendedor/`,
-        method: "GET",
-      })
-        .then((response) => {
-          Object.keys(response.data).forEach((item) => {
-            this.lista_nome_vendedores.push(item);
-          });
-          console.log(this.lista_nome_vendedores);
-          Object.values(response.data).forEach((item) => {
-            this.lista_score_vendedores.push(item);
-          });
-          console.log(this.lista_score_vendedores);
-          this.loaded = true;
-        })
-        .catch((e) => {
-          Swal.fire(
-            "Oops...",
-            "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
-            "error"
-          );
-        });
-    } catch (e) {
-      console.error(e);
-    }
   },
   methods: {
-    gerarGrafico() {
-      Axios({
-        url: "http://localhost:8080/consumo/lista-consumo-empresa/11924000193",
-        method: "GET",
-      }).then((response) => {
-        response.data.forEach((item) => {
-          this.lista_quantidade_consumo.push(item.quantidadeConsumo);
-        });
-        console.log(this.lista_quantidade_consumo);
-        response.data.forEach((item) => {
-          this.lista_mes_referencia.push(item.mesReferencia);
-        });
-        console.log(this.lista_mes_referencia);
-
-        this.loaded = true;
-      });
-    },
     // Método de cadastro de usuario
     cadastrar_usuario() {
       // Se o usuario não tiver um "id" significa que esse usuario não existe então ele vai pra resquest de cadastro
