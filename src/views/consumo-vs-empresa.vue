@@ -7,77 +7,87 @@
             <div>
               <v-row>
                 <v-col>
-                  <v-card width="600" class="mx-auto">
-                    <h1 class="text-center text-color">CONSUMO VS EMPRESA</h1>
-                    <v-row class="pa-4">
-                      <v-col>
-                        <v-row class="mb-6" no-gutters>
-                          <v-col>
-                            <v-text-field
-                              label="CNPJ"
-                              v-model="consumo1.cnpj"
-                              single-line
-                              solo
-                              required
-                              dense
-                              background-color="#e0e1dd"
-                              width="200"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
+                  <v-row class="pa-4">
+                    <v-card class="pa-3 mx-auto" color="#C0C0C0">
+                      <v-card class="pt-2 pb-2" width="600">
                         <v-row>
                           <v-col>
-                            <div id="btn">
-                              <v-form ref="form" lazy-validation>
-                                <v-btn
-                                  color="primary"
-                                  class="mr-4"
-                                  @click="
-                                    gerarGraficoConsumoVsCnpjFront(consumo1)
-                                  "
-                                  id="botao-enviar"
-                                >
-                                  Gerar Gráfico
-                                </v-btn>
-                              </v-form>
-                            </div>
-                          </v-col>
-                          <v-col>
-                            <div id="btn">
-                              <v-form ref="form" lazy-validation>
-                                <v-btn
-                                  color="primary"
-                                  class="mr-4"
-                                  @click="
-                                    gerarGraficoConsumoVsCnpjPDF(consumo1)
-                                  "
-                                  id="botao-enviar"
-                                >
-                                  Download PDF
-                                </v-btn>
-                              </v-form>
-                            </div>
-                          </v-col>
-                          <v-col>
-                            <div id="btn">
-                              <v-form ref="form" lazy-validation>
-                                <v-btn
-                                  color="primary"
-                                  class="mr-4"
-                                  @click="
-                                    gerarGraficoConsumoVsCnpjPNG(consumo1)
-                                  "
-                                  id="botao-enviar"
-                                >
-                                  Download PNG
-                                </v-btn>
-                              </v-form>
-                            </div>
+                            <h1 class="text-center text-color">
+                              CONSUMO VS EMPRESA
+                            </h1>
                           </v-col>
                         </v-row>
-                      </v-col>
-                    </v-row>
-                  </v-card>
+                        <!-- <h1 class="text-center text-color">CONSUMO VS EMPRESA</h1> -->
+                        <v-row>
+                          <v-col>
+                            <v-row no-gutters>
+                              <v-col class="mx-auto" cols="6">
+                                <v-text-field
+                                  label="CNPJ"
+                                  v-model="consumo1.cnpj"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                ></v-text-field>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>
+                                <div id="btn">
+                                  <v-form ref="form" lazy-validation>
+                                    <v-btn
+                                      color="primary"
+                                      class="mr-4"
+                                      @click="
+                                        gerarGraficoConsumoVsCnpjFront(consumo1)
+                                      "
+                                      id="botao-enviar"
+                                    >
+                                      Gerar Gráfico
+                                    </v-btn>
+                                  </v-form>
+                                </div>
+                              </v-col>
+                              <v-col>
+                                <div id="btn">
+                                  <v-form ref="form" lazy-validation>
+                                    <v-btn
+                                      color="primary"
+                                      class="mr-4"
+                                      @click="
+                                        gerarGraficoConsumoVsCnpjPDF(consumo1)
+                                      "
+                                      id="botao-enviar"
+                                    >
+                                      Download PDF
+                                    </v-btn>
+                                  </v-form>
+                                </div>
+                              </v-col>
+                              <v-col>
+                                <div id="btn">
+                                  <v-form ref="form" lazy-validation>
+                                    <v-btn
+                                      color="primary"
+                                      class="mr-4"
+                                      @click="
+                                        gerarGraficoConsumoVsCnpjPNG(consumo1)
+                                      "
+                                      id="botao-enviar"
+                                    >
+                                      Download PNG
+                                    </v-btn>
+                                  </v-form>
+                                </div>
+                              </v-col>
+                            </v-row>
+                          </v-col>
+                        </v-row>
+                      </v-card>
+                    </v-card>
+                  </v-row>
                 </v-col>
               </v-row>
               <v-row>
@@ -89,70 +99,106 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col>
-                  <h1 class="text-center text-color">CONSUMO VS 2 EMPRESAS</h1>
-                  <v-row class="pa-4">
+                <v-card class="pa-3 mx-auto" color="#C0C0C0">
+                  <v-card class="pt-2 pb-2" width="700">
                     <v-col>
-                      <v-row class="mb-6" no-gutters>
+                      <h1 class="text-center text-color">
+                        CONSUMO VS 2 EMPRESAS
+                      </h1>
+                      <v-row class="pa-4">
                         <v-col>
-                          <v-text-field
-                            label="CNPJ 1"
-                            v-model="consumo2.cnpj1"
-                            single-line
-                            solo
-                            required
-                            dense
-                            background-color="#e0e1dd"
-                            max-width="500"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row class="mb-6" no-gutters>
-                        <v-col>
-                          <v-text-field
-                            label="CNPJ 2"
-                            v-model="consumo2.cnpj2"
-                            single-line
-                            solo
-                            required
-                            dense
-                            background-color="#e0e1dd"
-                            max-width="500"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col>
-                          <div id="btn">
-                            <v-form ref="form" lazy-validation>
-                              <v-btn
-                                color="primary"
-                                class="mr-4"
-                                @click="gerarGraficoConsumoVs2CnpjPDF(consumo2)"
-                                id="botao-enviar"
-                              >
-                                Download PDF
-                              </v-btn>
-                            </v-form>
-                          </div>
-                        </v-col>
-                        <v-col>
-                          <div id="btn">
-                            <v-form ref="form" lazy-validation>
-                              <v-btn
-                                color="primary"
-                                class="mr-4"
-                                @click="gerarGraficoConsumoVs2CnpjPNG(consumo2)"
-                                id="botao-enviar"
-                              >
-                                Download PNG
-                              </v-btn>
-                            </v-form>
-                          </div>
+                          <v-row class="mb-6" no-gutters>
+                            <v-col>
+                              <v-text-field
+                                label="CNPJ 1"
+                                v-model="consumo2.cnpj1"
+                                single-line
+                                solo
+                                required
+                                dense
+                                background-color="#e0e1dd"
+                                max-width="500"
+                              ></v-text-field>
+                            </v-col>
+                          </v-row>
+                          <v-row class="mb-6" no-gutters>
+                            <v-col>
+                              <v-text-field
+                                label="CNPJ 2"
+                                v-model="consumo2.cnpj2"
+                                single-line
+                                solo
+                                required
+                                dense
+                                background-color="#e0e1dd"
+                                max-width="500"
+                              ></v-text-field>
+                            </v-col>
+                          </v-row>
+                          <v-row>
+                            <v-col>
+                              <div id="btn">
+                                <v-form ref="form" lazy-validation>
+                                  <v-btn
+                                    color="primary"
+                                    class="mr-4"
+                                    @click="
+                                      gerarGraficoConsumoVs2CnpjFront(consumo2)
+                                    "
+                                    id="botao-enviar"
+                                  >
+                                    Gerar Grafico
+                                  </v-btn>
+                                </v-form>
+                              </div>
+                            </v-col>
+                            <v-col>
+                              <div id="btn">
+                                <v-form ref="form" lazy-validation>
+                                  <v-btn
+                                    color="primary"
+                                    class="mr-4"
+                                    @click="
+                                      gerarGraficoConsumoVs2CnpjPDF(consumo2)
+                                    "
+                                    id="botao-enviar"
+                                  >
+                                    Download PDF
+                                  </v-btn>
+                                </v-form>
+                              </div>
+                            </v-col>
+                            <v-col>
+                              <div id="btn">
+                                <v-form ref="form" lazy-validation>
+                                  <v-btn
+                                    color="primary"
+                                    class="mr-4"
+                                    @click="
+                                      gerarGraficoConsumoVs2CnpjPNG(consumo2)
+                                    "
+                                    id="botao-enviar"
+                                  >
+                                    Download PNG
+                                  </v-btn>
+                                </v-form>
+                              </div>
+                            </v-col>
+                          </v-row>
                         </v-col>
                       </v-row>
                     </v-col>
-                  </v-row>
+                  </v-card>
+                </v-card>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <GraficoConsumo2Empresas
+                    :lista_consumo1="this.lista_quantidade_consumo1"
+                    :lista_mes_referencia1="this.lista_mes_referencia1"
+                    :lista_consumo2="this.lista_quantidade_consumo2"
+                    :lista_mes_referencia2="this.lista_mes_referencia2"
+                  />
                 </v-col>
               </v-row>
             </div>
@@ -167,14 +213,21 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import LineChart from "../components/Line.vue";
+import GraficoConsumo2Empresas from "../components/GraficoConsumo2Empresas.vue";
 import Axios from "axios";
 
 export default {
-  components: { LineChart },
+  components: { LineChart, GraficoConsumo2Empresas },
   data: () => ({
     // Variaveis do grafico de Consumo VS Empresa
     lista_quantidade_consumo: [],
     lista_mes_referencia: [],
+
+    // Variaveis do grafico de Consumo VS 2 Empresa
+    lista_quantidade_consumo1: [],
+    lista_mes_referencia1: [],
+    lista_quantidade_consumo2: [],
+    lista_mes_referencia2: [],
 
     consumo1: {
       cnpj: "",
@@ -200,6 +253,44 @@ export default {
           this.lista_mes_referencia.push(item.mesReferencia);
         });
         console.log(this.lista_mes_referencia);
+
+        this.loaded = true;
+      });
+    },
+    gerarGraficoConsumoVs2CnpjFront(consumo2) {
+      this.gerarGraficoConsumoVs2CnpjFront1(consumo2);
+      this.gerarGraficoConsumoVs2CnpjFront2(consumo2);
+    },
+    gerarGraficoConsumoVs2CnpjFront1(consumo2) {
+      Axios({
+        url: `http://localhost:8080/consumo/lista-consumo-empresa/${consumo2.cnpj1}`,
+        method: "GET",
+      }).then((response) => {
+        response.data.forEach((item) => {
+          this.lista_quantidade_consumo1.push(item.quantidadeConsumo);
+        });
+        console.log(this.lista_quantidade_consumo1);
+        response.data.forEach((item) => {
+          this.lista_mes_referencia1.push(item.mesReferencia);
+        });
+        console.log(this.lista_mes_referencia1);
+
+        this.loaded = true;
+      });
+    },
+    gerarGraficoConsumoVs2CnpjFront2(consumo2) {
+      Axios({
+        url: `http://localhost:8080/consumo/lista-consumo-empresa/${consumo2.cnpj2}`,
+        method: "GET",
+      }).then((response) => {
+        response.data.forEach((item) => {
+          this.lista_quantidade_consumo2.push(item.quantidadeConsumo);
+        });
+        console.log(this.lista_quantidade_consumo2);
+        response.data.forEach((item) => {
+          this.lista_mes_referencia2.push(item.mesReferencia);
+        });
+        console.log(this.lista_mes_referencia2);
 
         this.loaded = true;
       });
