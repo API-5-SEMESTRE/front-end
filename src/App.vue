@@ -100,6 +100,10 @@ export default {
         title: "Score Origem",
         to: "/relatorios-score",
       },
+      {
+        title: "Score Região",
+        to: "/relatorios-score-regiao",
+      },
       // {
       //   title: "Upload CNAE",
       //   to: "/upload-cnae",
