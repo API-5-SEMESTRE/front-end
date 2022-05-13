@@ -96,6 +96,10 @@ export default {
         title: "Consumo VS Empresa",
         to: "/consumo-vs-empresa",
       },
+      {
+        title: "Relatórios Score",
+        to: "/relatorios-score",
+      },
       // {
       //   title: "Upload CNAE",
       //   to: "/upload-cnae",

@@ -46,6 +46,12 @@ const routes = [
     meta: { title: 'Consumo VS Empresa' },
     component: () => import('../views/consumo-vs-empresa.vue')
   },
+  {
+    path: '/relatorios-score',
+    name: 'Relatórios Score',
+    meta: { title: 'Relatórios Score' },
+    component: () => import('../views/relatorios-score.vue')
+  },
 ]
 
 const router = new VueRouter({
