@@ -211,6 +211,21 @@
                   />
                 </v-col>
               </v-row> -->
+              <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Origem</th>
+                    <th>Score Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="score in test2" :key="score.cnpj">
+                    <td>{{score.cnpj}}</td>
+                    <td>{{score.origem}}</td>
+                    <td>{{score.totalScore}}</td>
+                </tr>
+            </tbody>
+        </table>
             </div>
           </v-flex>
         </v-layout>
@@ -223,11 +238,12 @@
 // import Swal from "sweetalert2";
 // import LineChart from "../components/Line.vue";
 // import GraficoConsumo2Empresas from "../components/GraficoConsumo2Empresas.vue";
-import Axios from "axios";
+import axios from "axios";
 
 export default {
   components: {},
   data: () => ({
+    test2: [],
     grafico1: {
       origem: "",
       Quantidade_itens: "",
@@ -239,27 +255,13 @@ export default {
 
   methods: {
     gerarGraficoScoreOrigem() {
-      Axios({
-        url: `http://localhost:8080/empresa/pesquisar-score-por-origem/SPC/1/10/0`,
-        // url: `http://localhost:8080/empresa/pesquisar-score-por-origem/CONCORRENTE/1/10/0`,
-        method: "GET",
-      }).then((response) => {
-        console.log(response.data);
-
-        Object.keys(response.data).forEach((item) => {
-          this.lista_cnpj_grafico1.push(item.cnpj);
-        });
-
-        console.log(this.lista_cnpj_grafico1);
-
-        // response.data.forEach((item) => {
-        //   console.log("Item" + item);
-        //   this.lista_cnpg_grafico1.push(item.cnpj);
-        // });
-        // console.log(this.lista_cnpg_grafico1);
-
-        this.loaded = true;
-      });
+      axios
+        .get('http://localhost:8080/empresa/pesquisar-score-por-origem/SPC/1/10/0')
+        .then(response => {
+          const test = response.data.content
+          this.test2 = test
+          console.log(this.test2)
+        })
     },
   },
 };
