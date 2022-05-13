@@ -97,7 +97,7 @@ export default {
         to: "/consumo-vs-empresa",
       },
       {
-        title: "Relatórios Score",
+        title: "Score Origem",
         to: "/relatorios-score",
       },
       // {

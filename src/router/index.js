@@ -48,8 +48,8 @@ const routes = [
   },
   {
     path: '/relatorios-score',
-    name: 'Relatórios Score',
-    meta: { title: 'Relatórios Score' },
+    name: 'Score Origem',
+    meta: { title: 'Score Origem' },
     component: () => import('../views/relatorios-score.vue')
   },
 ]

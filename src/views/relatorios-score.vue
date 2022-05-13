@@ -9,7 +9,7 @@
                 <v-col>
                   <v-row class="pa-4">
                     <v-card class="pa-3 mx-auto" color="#C0C0C0">
-                      <v-card class="pt-2 pb-2" width="600">
+                      <v-card class="pt-2 pb-2" width="650">
                         <v-row>
                           <v-col>
                             <h1 class="text-center text-color">
@@ -21,7 +21,7 @@
                         <v-row>
                           <v-col>
                             <v-row no-gutters>
-                              <v-col class="mx-auto" cols="4">
+                              <v-col class="mx-auto" cols="3">
                                 <v-select
                                   :items="grafico1_origem"
                                   label="Origem"
@@ -33,7 +33,7 @@
                                   background-color="#e0e1dd"
                                 ></v-select>
                               </v-col>
-                              <v-col class="mx-auto" cols="4">
+                              <v-col class="mx-auto" cols="3">
                                 <v-text-field
                                   label="Quantidade Itens"
                                   v-model="grafico1.Quantidade_itens"
@@ -44,6 +44,18 @@
                                   background-color="#e0e1dd"
                                 ></v-text-field>
                               </v-col>
+                              <v-col class="mx-auto" cols="3">
+                                <v-select
+                                  :items="grafico1_ordenacao"
+                                  label="Ordenação"
+                                  v-model="grafico1.ordenacao"
+                                  single-line
+                                  solo
+                                  required
+                                  dense
+                                  background-color="#e0e1dd"
+                                ></v-select>
+                              </v-col>
                             </v-row>
                             <v-row>
                               <v-col>
@@ -52,7 +64,7 @@
                                     <v-btn
                                       color="primary"
                                       class="mr-4"
-                                      @click="gerarGraficoScoreOrigem()"
+                                      @click="gerarGraficoScoreOrigem(grafico1)"
                                       id="botao-enviar"
                                     >
                                       Gerar Gráfico
@@ -100,132 +112,47 @@
                   </v-row>
                 </v-col>
               </v-row>
-              <!-- <v-row>
+              <v-row>
                 <v-col>
-                  <LineChart
-                    :lista_consumo="this.lista_quantidade_consumo"
-                    :lista_mes="this.lista_mes_referencia"
+                  <GraficoScoreOrigem
+                    :lista_cnpj="this.lista_cnpj_grafico1"
+                    :lista_score="this.lista_score_grafico1"
                   />
                 </v-col>
-              </v-row> -->
-              <!-- <v-row>
-                <v-card class="pa-3 mx-auto" color="#C0C0C0">
-                  <v-card class="pt-2 pb-2" width="700">
-                    <v-col>
-                      <h1 class="text-center text-color">
-                        CONSUMO VS 2 EMPRESAS
-                      </h1>
-                      <v-row class="pa-4">
-                        <v-col>
-                          <v-row class="mb-6" no-gutters>
-                            <v-col>
-                              <v-text-field
-                                label="CNPJ 1"
-                                v-model="consumo2.cnpj1"
-                                single-line
-                                solo
-                                required
-                                dense
-                                background-color="#e0e1dd"
-                                max-width="500"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
-                          <v-row class="mb-6" no-gutters>
-                            <v-col>
-                              <v-text-field
-                                label="CNPJ 2"
-                                v-model="consumo2.cnpj2"
-                                single-line
-                                solo
-                                required
-                                dense
-                                background-color="#e0e1dd"
-                                max-width="500"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col>
-                              <div id="btn">
-                                <v-form ref="form" lazy-validation>
-                                  <v-btn
-                                    color="primary"
-                                    class="mr-4"
-                                    @click="
-                                      gerarGraficoConsumoVs2CnpjFront(consumo2)
-                                    "
-                                    id="botao-enviar"
-                                  >
-                                    Gerar Grafico
-                                  </v-btn>
-                                </v-form>
-                              </div>
-                            </v-col>
-                            <v-col>
-                              <div id="btn">
-                                <v-form ref="form" lazy-validation>
-                                  <v-btn
-                                    color="primary"
-                                    class="mr-4"
-                                    @click="
-                                      gerarGraficoConsumoVs2CnpjPDF(consumo2)
-                                    "
-                                    id="botao-enviar"
-                                  >
-                                    Download PDF
-                                  </v-btn>
-                                </v-form>
-                              </div>
-                            </v-col>
-                            <v-col>
-                              <div id="btn">
-                                <v-form ref="form" lazy-validation>
-                                  <v-btn
-                                    color="primary"
-                                    class="mr-4"
-                                    @click="
-                                      gerarGraficoConsumoVs2CnpjPNG(consumo2)
-                                    "
-                                    id="botao-enviar"
-                                  >
-                                    Download PNG
-                                  </v-btn>
-                                </v-form>
-                              </div>
-                            </v-col>
-                          </v-row>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                  </v-card>
-                </v-card>
               </v-row>
               <v-row>
                 <v-col>
-                  <GraficoConsumo2Empresas
-                    :lista_consumo1="this.lista_quantidade_consumo1"
-                    :lista_mes_referencia1="this.lista_mes_referencia1"
-                    :lista_consumo2="this.lista_quantidade_consumo2"
-                    :lista_mes_referencia2="this.lista_mes_referencia2"
+                  <GraficoScoreOrigemLine
+                    :lista_cnpj="this.lista_cnpj_grafico1"
+                    :lista_score="this.lista_score_grafico1"
                   />
                 </v-col>
-              </v-row> -->
-              <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Origem</th>
-                    <th>Score Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="score in test2" :key="score.cnpj">
-                    <td>{{score.cnpj}}</td>
-                    <td>{{score.origem}}</td>
-                    <td>{{score.totalScore}}</td>
-                </tr>
-            </tbody>
-        </table>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-card>
+                    <v-card-title>
+                      <v-col cols="5" class="mx-auto">
+                        <v-text-field
+                          v-model="search"
+                          append-icon="mdi-magnify"
+                          label="Search"
+                          single-line
+                          hide-details
+                        ></v-text-field>
+                      </v-col>
+                    </v-card-title>
+                    <v-data-table
+                      :headers="headersGrafico1"
+                      :items="data_grafico1"
+                      :search="search"
+                      sort-by="calories"
+                      class="elevation-1"
+                    >
+                    </v-data-table>
+                  </v-card>
+                </v-col>
+              </v-row>
             </div>
           </v-flex>
         </v-layout>
@@ -235,33 +162,97 @@
 </template>
 
 <script>
-// import Swal from "sweetalert2";
-// import LineChart from "../components/Line.vue";
-// import GraficoConsumo2Empresas from "../components/GraficoConsumo2Empresas.vue";
-import axios from "axios";
+import Swal from "sweetalert2";
+import GraficoScoreOrigem from "../components/GraficoScoreOrigem.vue";
+import GraficoScoreOrigemLine from "../components/GraficoScoreOrigemLine.vue";
+import Axios from "axios";
 
 export default {
-  components: {},
+  components: { GraficoScoreOrigem, GraficoScoreOrigemLine },
   data: () => ({
-    test2: [],
+    search: "",
+    data_grafico1: [],
     grafico1: {
       origem: "",
       Quantidade_itens: "",
+      ordenacao: "",
     },
     grafico1_origem: ["SPC", "CONCORRENTE"],
+    grafico1_ordenacao: ["Crescente", "Decrescente"],
     lista_cnpj_grafico1: [],
     lista_score_grafico1: [],
+    headersGrafico1: [
+      {
+        text: "CNPJ",
+        align: "start",
+        value: "cnpj",
+      },
+      { text: "Origem", value: "origem" },
+      { text: "Regiao", value: "regiao" },
+      { text: "Média Consumo", value: "mediaConsumo" },
+      { text: "Total Consumo", value: "totalConsumo" },
+      { text: "Média Score", value: "mediaScore" },
+      { text: "Total Score", value: "totalScore" },
+    ],
   }),
 
   methods: {
-    gerarGraficoScoreOrigem() {
-      axios
-        .get('http://localhost:8080/empresa/pesquisar-score-por-origem/SPC/1/10/0')
-        .then(response => {
-          const test = response.data.content
-          this.test2 = test
-          console.log(this.test2)
+    gerarGraficoScoreOrigem(grafico1) {
+      if (grafico1.ordenacao == "Decrescente") {
+        Axios({
+          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${grafico1.origem}/1/${grafico1.Quantidade_itens}/0`,
+          method: "GET",
         })
+          .then((response) => {
+            const test = response.data.content;
+            this.data_grafico1 = test;
+            console.log(this.data_grafico1);
+
+            this.data_grafico1.forEach((item) => {
+              this.lista_cnpj_grafico1.push(item.cnpj);
+            });
+            console.log(this.lista_cnpj_grafico1);
+
+            this.data_grafico1.forEach((item) => {
+              this.lista_score_grafico1.push(item.totalScore);
+            });
+            console.log(this.lista_score_grafico1);
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+      } else {
+        Axios({
+          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${grafico1.origem}/1/${grafico1.Quantidade_itens}/1`,
+          method: "GET",
+        })
+          .then((response) => {
+            const test = response.data.content;
+            this.data_grafico1 = test;
+            console.log(this.data_grafico1);
+
+            this.data_grafico1.forEach((item) => {
+              this.lista_cnpj_grafico1.push(item.cnpj);
+            });
+            console.log(this.lista_cnpj_grafico1);
+
+            this.data_grafico1.forEach((item) => {
+              this.lista_score_grafico1.push(item.totalScore);
+            });
+            console.log(this.lista_score_grafico1);
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+      }
     },
   },
 };
