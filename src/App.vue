@@ -12,7 +12,7 @@
         transition="scale-transition"
       />
       <v-toolbar-title class="text-h6 text-color"
-        >SAS - SCORE ANALYSUS SYSTEM
+        >SAS - SCORE ANALYSIS SYSTEM
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
