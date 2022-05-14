@@ -104,10 +104,6 @@ export default {
         title: "Score Região",
         to: "/relatorios-score-regiao",
       },
-      {
-        title: "Score CNPJ",
-        to: "/relatorios-score-cnpj",
-      },
       // {
       //   title: "Upload CNAE",
       //   to: "/upload-cnae",

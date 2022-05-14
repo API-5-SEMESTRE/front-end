@@ -58,12 +58,6 @@ const routes = [
     meta: { title: 'Score Região' },
     component: () => import('../views/relatorios-score-regiao.vue')
   },
-  {
-    path: '/relatorios-score-cnpj',
-    name: 'Score CNPJ',
-    meta: { title: 'Score CNPJ' },
-    component: () => import('../views/relatorios-score-cnpj.vue')
-  },
 ]
 
 const router = new VueRouter({
