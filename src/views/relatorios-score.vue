@@ -113,12 +113,12 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col>
+                <!--<v-col>
                   <GraficoScoreOrigem
                     :lista_cnpj="this.lista_cnpj_grafico1"
                     :lista_score="this.lista_score_grafico1"
                   />
-                </v-col>
+                </v-col>-->
               </v-row>
               <v-row>
                 <v-col>
@@ -136,7 +136,7 @@
                         <v-text-field
                           v-model="search"
                           append-icon="mdi-magnify"
-                          label="Search"
+                          label="Procurar"
                           single-line
                           hide-details
                         ></v-text-field>
@@ -146,10 +146,20 @@
                       :headers="headersGrafico1"
                       :items="data_grafico1"
                       :search="search"
+                      :pagination.sync="pagination"
+                      
                       sort-by="calories"
                       class="elevation-1"
                     >
                     </v-data-table>
+                    <div style="display: flex; width:50%; justify-content:center; margin:auto;">
+                    <v-pagination 
+                    style="width:50%;" 
+                    v-model="pagination.page" 
+                    :length="paginas"  
+                    @next="nextPage" 
+                    @previous="previousPage"></v-pagination>
+                    </div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -163,13 +173,16 @@
 
 <script>
 import Swal from "sweetalert2";
-import GraficoScoreOrigem from "../components/GraficoScoreOrigem.vue";
+//import GraficoScoreOrigem from "../components/GraficoScoreOrigem.vue";
 import GraficoScoreOrigemLine from "../components/GraficoScoreOrigemLine.vue";
 import Axios from "axios";
 
 export default {
-  components: { GraficoScoreOrigem, GraficoScoreOrigemLine },
+  components: { /*GraficoScoreOrigem,*/ GraficoScoreOrigemLine },
   data: () => ({
+    paginas: 0,
+    pagina: 1,
+    pagination:{rowsPerPage:0,totalItems:0,page:1},
     search: "",
     data_grafico1: [],
     grafico1: {
@@ -197,6 +210,90 @@ export default {
   }),
 
   methods: {
+    
+    pageUpdateFunction(newPage, back) {
+      if (this.grafico1.ordenacao == "Decrescente") {
+        Axios({
+          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
+          method: "GET",
+        })
+          .then((response) => {
+            console.log(response)
+            const test = response.data.content;
+            this.data_grafico1 = test;
+
+            if(!back) {
+              this.data_grafico1.forEach((item) => {
+                this.lista_cnpj_grafico1.push(item.cnpj);
+              });
+
+              this.data_grafico1.forEach((item) => {
+                this.lista_score_grafico1.push(item.totalScore);
+              });
+            } else {
+              var x = this.grafico1.Quantidade_itens
+              while(x > 0) {
+                this.lista_cnpj_grafico1.pop()
+                this.lista_score_grafico1.pop()
+                --x
+              }
+            }
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+      } else {
+        Axios({
+          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
+          method: "GET",
+        })
+          .then((response) => {
+            console.log(response)
+            const test = response.data.content;
+            this.data_grafico1 = test;
+
+            if(!back) {
+              this.data_grafico1.forEach((item) => {
+                this.lista_cnpj_grafico1.push(item.cnpj);
+              });
+
+              this.data_grafico1.forEach((item) => {
+                this.lista_score_grafico1.push(item.totalScore);
+              });
+            } else {
+              var x = this.grafico1.Quantidade_itens
+              while(x > 0) {
+                this.lista_cnpj_grafico1.pop()
+                this.lista_score_grafico1.pop()
+                --x
+              }
+            }
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+      }
+    },
+
+    nextPage() {
+      this.pagina += 1
+      if(this.pagina === 1) return
+      this.pageUpdateFunction(this.pagina, false)
+    },
+
+    previousPage() {
+      this.pagina -= 1
+      this.pageUpdateFunction(this.pagina, true)
+    },
+
     gerarGraficoScoreOrigem(grafico1) {
       if (grafico1.ordenacao == "Decrescente") {
         Axios({
@@ -204,19 +301,22 @@ export default {
           method: "GET",
         })
           .then((response) => {
+            console.log(response)
             const test = response.data.content;
             this.data_grafico1 = test;
-            console.log(this.data_grafico1);
 
             this.data_grafico1.forEach((item) => {
               this.lista_cnpj_grafico1.push(item.cnpj);
             });
-            console.log(this.lista_cnpj_grafico1);
 
             this.data_grafico1.forEach((item) => {
               this.lista_score_grafico1.push(item.totalScore);
             });
-            console.log(this.lista_score_grafico1);
+            this.pagination.rowsPerPage = grafico1.Quantidade_itens
+            this.pagination.totalItems = response.data.totalElements
+
+            const paginas = response.data.totalPages
+            this.paginas = paginas
           })
           .catch((e) => {
             Swal.fire(
@@ -231,19 +331,23 @@ export default {
           method: "GET",
         })
           .then((response) => {
+            console.log(response)
             const test = response.data.content;
             this.data_grafico1 = test;
-            console.log(this.data_grafico1);
 
             this.data_grafico1.forEach((item) => {
               this.lista_cnpj_grafico1.push(item.cnpj);
             });
-            console.log(this.lista_cnpj_grafico1);
 
             this.data_grafico1.forEach((item) => {
               this.lista_score_grafico1.push(item.totalScore);
             });
-            console.log(this.lista_score_grafico1);
+
+            this.pagination.rowsPerPage = grafico1.Quantidade_itens
+            this.pagination.totalItems = response.data.totalElements
+
+            const paginas = response.data.totalPages
+            this.paginas = paginas
           })
           .catch((e) => {
             Swal.fire(

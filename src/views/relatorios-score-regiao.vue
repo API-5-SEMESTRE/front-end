@@ -137,10 +137,21 @@
                       :headers="headersGrafico1"
                       :items="data_grafico1"
                       :search="search"
+                      :pagination.sync="pagination"
+
                       sort-by="calories"
                       class="elevation-1"
                     >
                     </v-data-table>
+                    <div style="display: flex; width:50%; justify-content:center; margin:auto;">
+                    <v-pagination 
+                    style="width:100%;" 
+                    v-model="pagination.page" 
+                    :length="paginas" 
+                    @next="nextPage" 
+                    @previous="previousPage"></v-pagination>
+
+                    </div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -160,6 +171,9 @@ import Axios from "axios";
 export default {
   components: { GraficoScoreRegiaoLine },
   data: () => ({
+    paginas: 0,
+    pagina: 1,
+    pagination:{rowsPerPage:0,totalItems:0,page:1},
     search: "",
     data_grafico1: [],
     grafico1: {
@@ -186,7 +200,101 @@ export default {
     ],
   }),
 
+  computed: {
+    pages() {
+      if(this.pagination.rowsPerPage == null || this.pagination.totalItems == null)
+        return 0
+
+      else  return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+    }
+  },
+
   methods: {
+    pageUpdateFunction(newPage, back) {
+      if (this.grafico1.ordenacao == "Decrescente") {
+        Axios({
+          url: `http://localhost:8080/empresa/pesquisar-score-por-regiao/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
+          method: "GET",
+        })
+          .then((response) => {
+            console.log(response)
+            const test = response.data.content;
+            this.data_grafico1 = test;
+
+            if(!back) {
+              this.data_grafico1.forEach((item) => {
+                this.lista_cnpj_grafico1.push(item.cnpj);
+              });
+
+              this.data_grafico1.forEach((item) => {
+                this.lista_score_grafico1.push(item.totalScore);
+              });
+            } else {
+              var x = this.grafico1.Quantidade_itens
+              while(x > 0) {
+                this.lista_cnpj_grafico1.pop()
+                this.lista_score_grafico1.pop()
+                --x
+              }
+            }
+              
+            
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+      } else {
+        Axios({
+          url: `http://localhost:8080/empresa/pesquisar-score-por-regiao/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
+          method: "GET",
+        })
+          .then((response) => {
+            console.log(response)
+            const test = response.data.content;
+            this.data_grafico1 = test;
+            if(!back) {
+              this.data_grafico1.forEach((item) => {
+                this.lista_cnpj_grafico1.push(item.cnpj);
+              });
+
+              this.data_grafico1.forEach((item) => {
+                this.lista_score_grafico1.push(item.totalScore);
+              });
+            } else {
+              var x = this.grafico1.Quantidade_itens
+              while(x > 0) {
+                this.lista_cnpj_grafico1.pop()
+                this.lista_score_grafico1.pop()
+                --x
+              }
+            }
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Oops...",
+              "Erro ao gerar o gráfico! - Erro: " + e.response.data.error,
+              "error"
+            );
+          });
+      }
+    },
+
+    nextPage() {
+      this.pagina += 1
+      if(this.pagina === 1) return
+      this.pageUpdateFunction(this.pagina, false)
+    },
+
+    previousPage() {
+      this.pagina -= 1
+      this.pageUpdateFunction(this.pagina, true)
+    },
+
+
     gerarGraficoScoreRegiao(grafico1) {
       if (grafico1.ordenacao == "Decrescente") {
         Axios({
@@ -207,6 +315,9 @@ export default {
               this.lista_score_grafico1.push(item.totalScore);
             });
             console.log(this.lista_score_grafico1);
+
+            const paginas = response.data.totalPages
+            this.paginas = paginas + 1
           })
           .catch((e) => {
             Swal.fire(
@@ -234,6 +345,9 @@ export default {
               this.lista_score_grafico1.push(item.totalScore);
             });
             console.log(this.lista_score_grafico1);
+
+            const paginas = response.data.totalPages
+            this.paginas = paginas + 1
           })
           .catch((e) => {
             Swal.fire(
@@ -243,6 +357,8 @@ export default {
             );
           });
       }
+
+      
     },
   },
 };
