@@ -101,7 +101,7 @@ export default {
           },
           {
             label: "Consumo CNPJ 2",
-            backgroundColor: "#f87979",
+            backgroundColor: "#0000FF",
             // data: [40, 39, 10, 40, 39, 80, 40],
             data: props.lista_consumo2,
           },

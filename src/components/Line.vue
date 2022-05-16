@@ -90,7 +90,7 @@ export default {
         // ],
         datasets: [
           {
-            label: "Data One",
+            label: "Consumo",
             backgroundColor: "#f87979",
             // data: [40, 39, 10, 40, 39, 80, 40],
             data: props.lista_consumo,
