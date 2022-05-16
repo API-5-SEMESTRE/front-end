@@ -235,7 +235,7 @@ export default {
       { text: "Nome", value: "nome" },
       { text: "Email", value: "email" },
       { text: "Tipo acesso", value: "tipoAcesso" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Ações", value: "actions", sortable: false },
     ],
   }),
   computed: {
