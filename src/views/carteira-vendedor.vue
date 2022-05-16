@@ -132,7 +132,7 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col>
+                <!--<v-col>
                   <v-row>
                     <v-col>
                       <v-card class="pa-3" color="#C0C0C0">
@@ -188,7 +188,7 @@
                       </v-card>
                     </v-col>
                   </v-row>
-                </v-col>
+                </v-col>-->
               </v-row>
             </div>
             <div class="pt-10">
@@ -203,9 +203,42 @@
                     >
                       <template v-slot:top>
                         <v-toolbar flat>
-                          <v-toolbar-title>CARTEIRA/VENDEDOR</v-toolbar-title>
+                          <v-toolbar-title>
+                            <div style="display: flex; width:100%; align-items:center;">
+                            <img src="./img/path846.png" style="width:50px">
+                            {{titulo_vendedor}}
+                            </div>
+                          </v-toolbar-title>
                         </v-toolbar>
+
+                        <v-dialog v-model="dialogDelete" max-width="540px">
+                        <v-card color="white">
+                          <v-card-title class="text-h5 text-color"
+                            >Tem certeza de que deseja terminar o atendimento?
+                          </v-card-title
+                          >
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="#274c77" @click="closeDelete">
+                              Cancelar
+                            </v-btn>
+                            <v-btn
+                              color="#C84634"
+                              class="white--text mr-4"
+                              @click="deletar_carteira()"
+                              >Sim</v-btn
+                            >
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+
                       </template>
+                      
+                  <!-- <template v-slot:item.actions="{ item }"> -->
+                  <template v-slot:[`item.actions`]="{ item }">
+                    <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
+                  </template>
                     </v-data-table>
                   </v-card>
                 </v-col>
@@ -300,6 +333,14 @@ export default {
   components: { BarChart },
   data: () => ({
     // Variaveis do grafico de ranking de vendedores
+    vendedor: {email: "",
+              id: 71,
+              nome: "",
+              tipoAcesso: "",
+              dialogDelete: false},
+    senioridade: "",
+    score: null,
+    titulo_vendedor: "",
     lista_nome_vendedores: [],
     lista_score_vendedores: [],
 
@@ -348,12 +389,13 @@ export default {
         align: "start",
         value: "cnpj",
       },
-      { text: "Cidade", value: "cidade.descricao" },
-      { text: "CNAE", value: "cnae.descricao" },
+      { text: "Cidade", value: "cidade" },
+      { text: "CNAE", value: "cnae" },
       { text: "Origem", value: "origem" },
-      { text: "Vendedor", value: "usuario.nome" },
-      { text: "Acesso", value: "usuario.tipoAcesso" },
+      //{ text: "Vendedor", value: "usuario.nome" },
+      //{ text: "Acesso", value: "usuario.tipoAcesso" },
       { text: "Data de cadastro", value: "dataDeCadastroVendedor" },
+      { text: "Ações", value: "actions", sortable: false },
     ],
   }),
   async mounted() {
@@ -366,6 +408,7 @@ export default {
         method: "GET",
       })
         .then((response) => {
+          console.log(response)
           Object.keys(response.data).forEach((item) => {
             this.lista_nome_vendedores.push(item);
           });
@@ -500,6 +543,19 @@ export default {
     pesquisar_carteira() {
       Usuario.listar_carteira(this.carteira_usuario)
         .then((resposta_lista_carteira) => {
+          console.log(resposta_lista_carteira)
+          this.vendedor = resposta_lista_carteira.data.vendedor
+          console.log(this.vendedor)
+          this.titulo_vendedor = this.vendedor.nome + 
+                                  "("+
+                                  resposta_lista_carteira.data.senioridade+
+                                  ")"+
+                                  " /Email: "+
+                                  this.vendedor.email+
+
+                                  " /Score: "+
+                                  resposta_lista_carteira.data.score
+                                  
           this.lista_de_carteira = resposta_lista_carteira.data.clientes;
           console.log(this.lista_de_carteira);
           Swal.fire("Sucesso", "Usuário pesquisado com sucesso!", "success");
@@ -513,12 +569,38 @@ export default {
           );
         });
     },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.carteira = {};
+    },
+
+  
+
+    deleteItem(carteira) {
+      this.editedIndex = this.lista_de_carteira.indexOf(carteira);
+      this.carteira = Object.assign({}, carteira);
+      console.log(this.carteira.cnpj);
+      this.dialogDelete = true;
+    },
     // Método pra exibir as carteiras de um usuario
     deletar_carteira() {
-      Usuario.excluir_carteira(this.carteira_deletar)
+      Usuario.excluir_carteira(this.carteira)
         .then((resposta_excluir_carteira) => {
           Swal.fire("Sucesso", "CNPJ excluido com sucesso!!!", "success");
           resposta_excluir_carteira;
+          this.dialogDelete = false
+          var index = 0
+          for(let i=0;i<this.lista_de_carteira.length;i++){
+            console.log(this.lista_de_carteira[i].cnpj)
+            if(this.carteira.cnpj === this.lista_de_carteira[i].cnpj) {
+              console.log("aqui")
+              index = i
+              break
+            }
+          }
+          this.lista_de_carteira.splice(index, 1)
+          this.carteira = {}
         })
         .catch((e) => {
           Swal.fire(
