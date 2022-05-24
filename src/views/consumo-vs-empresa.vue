@@ -244,7 +244,7 @@ export default {
     // 19072238000150
     gerarGraficoConsumoVsCnpjFront(consumo1) {
       Axios({
-        url: `http://localhost:8080/consumo/lista-consumo-empresa/${consumo1.cnpj}`,
+        url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo1.cnpj}`,
         method: "GET",
       }).then((response) => {
         response.data.forEach((item) => {
@@ -275,7 +275,7 @@ export default {
     },
     gerarGraficoConsumoVs2CnpjFront1(consumo2) {
       Axios({
-        url: `http://localhost:8080/consumo/lista-consumo-empresa/${consumo2.cnpj1}`,
+        url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo2.cnpj1}`,
         method: "GET",
       }).then((response) => {
         response.data.forEach((item) => {
@@ -302,7 +302,7 @@ export default {
     },
     gerarGraficoConsumoVs2CnpjFront2(consumo2) {
       Axios({
-        url: `http://localhost:8080/consumo/lista-consumo-empresa/${consumo2.cnpj2}`,
+        url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo2.cnpj2}`,
         method: "GET",
       }).then((response) => {
         response.data.forEach((item) => {
@@ -329,7 +329,7 @@ export default {
     },
     gerarGraficoConsumoVsCnpjPNG(consumo1) {
       axios({
-        url: `http://localhost:5000/graph/consumo/${consumo1.cnpj}`,
+        url: `https://sas-flask-api.herokuapp.com/graph/consumo/${consumo1.cnpj}`,
         method: "GET",
         responseType: "blob",
       })
@@ -354,7 +354,7 @@ export default {
     },
     gerarGraficoConsumoVsCnpjPDF(consumo1) {
       axios({
-        url: `http://localhost:5000/graph/consumo/${consumo1.cnpj}/pdf`,
+        url: `https://sas-flask-api.herokuapp.com/graph/consumo/${consumo1.cnpj}/pdf`,
         method: "GET",
         responseType: "blob",
       })
@@ -379,7 +379,7 @@ export default {
     },
     gerarGraficoConsumoVs2CnpjPDF(consumo2) {
       axios({
-        url: `http://localhost:5000/graphs/consumo/${consumo2.cnpj1}/${consumo2.cnpj2}/pdf`,
+        url: `https://sas-flask-api.herokuapp.com/graphs/consumo/${consumo2.cnpj1}/${consumo2.cnpj2}/pdf`,
         method: "GET",
         responseType: "blob",
       })
@@ -404,7 +404,7 @@ export default {
     },
     gerarGraficoConsumoVs2CnpjPNG(consumo2) {
       axios({
-        url: `http://localhost:5000/graphs/consumo/${consumo2.cnpj1}/${consumo2.cnpj2}`,
+        url: `https://sas-flask-api.herokuapp.com/graphs/consumo/${consumo2.cnpj1}/${consumo2.cnpj2}`,
         method: "GET",
         responseType: "blob",
       })

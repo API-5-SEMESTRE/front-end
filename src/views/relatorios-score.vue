@@ -214,7 +214,7 @@ export default {
     pageUpdateFunction(newPage, back) {
       if (this.grafico1.ordenacao == "Decrescente") {
         Axios({
-          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
+          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
           method: "GET",
         })
           .then((response) => {
@@ -248,7 +248,7 @@ export default {
           });
       } else {
         Axios({
-          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
+          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
           method: "GET",
         })
           .then((response) => {
@@ -297,7 +297,7 @@ export default {
     gerarGraficoScoreOrigem(grafico1) {
       if (grafico1.ordenacao == "Decrescente") {
         Axios({
-          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${grafico1.origem}/1/${grafico1.Quantidade_itens}/0`,
+          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${grafico1.origem}/1/${grafico1.Quantidade_itens}/0`,
           method: "GET",
         })
           .then((response) => {
@@ -327,7 +327,7 @@ export default {
           });
       } else {
         Axios({
-          url: `http://localhost:8080/empresa/pesquisar-score-por-origem/${grafico1.origem}/1/${grafico1.Quantidade_itens}/1`,
+          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${grafico1.origem}/1/${grafico1.Quantidade_itens}/1`,
           method: "GET",
         })
           .then((response) => {
