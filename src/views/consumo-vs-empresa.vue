@@ -92,7 +92,7 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <LineChart
+                  <GraficoConsumo1Cnpj
                     :lista_consumo="this.lista_quantidade_consumo"
                     :lista_mes="this.lista_mes_referencia"
                   />
@@ -212,12 +212,12 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import LineChart from "../components/Line.vue";
+import GraficoConsumo1Cnpj from "../components/GraficoConsumo1Cnpj.vue";
 import GraficoConsumo2Empresas from "../components/GraficoConsumo2Empresas.vue";
 import Axios from "axios";
 
 export default {
-  components: { LineChart, GraficoConsumo2Empresas },
+  components: { GraficoConsumo1Cnpj, GraficoConsumo2Empresas },
   data: () => ({
     // Variaveis do grafico de Consumo VS Empresa
     lista_quantidade_consumo: [],

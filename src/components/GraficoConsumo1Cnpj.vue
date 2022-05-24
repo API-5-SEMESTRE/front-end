@@ -1,5 +1,5 @@
 <template>
-  <LineChartGenerator
+  <Bar
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="chartId"
@@ -15,40 +15,38 @@
 </template>
 
 <script>
-import { Line as LineChartGenerator } from "vue-chartjs/legacy";
+import { Bar } from "vue-chartjs/legacy";
 
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
-  LineElement,
-  LinearScale,
+  BarElement,
   CategoryScale,
-  PointElement,
+  LinearScale,
 } from "chart.js";
 
 ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  LineElement,
-  LinearScale,
+  BarElement,
   CategoryScale,
-  PointElement
+  LinearScale
 );
 
 export default {
-  name: "LineChart",
+  name: "GraficoConsumo1Cnpj",
   components: {
-    LineChartGenerator,
+    Bar,
   },
   props: {
     lista_consumo: [],
     lista_mes: [],
     chartId: {
       type: String,
-      default: "line-chart",
+      default: "bar-chart",
     },
     datasetIdKey: {
       type: String,
@@ -77,17 +75,9 @@ export default {
   },
   data(props) {
     return {
+      loaded: false,
       chartData: {
         labels: props.lista_mes,
-        // labels: [
-        //   "January",
-        //   "February",
-        //   "March",
-        //   "April",
-        //   "May",
-        //   "June",
-        //   "July",
-        // ],
         datasets: [
           {
             label: "Consumo",
