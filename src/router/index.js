@@ -52,12 +52,6 @@ const routes = [
     meta: { title: 'Score Origem' },
     component: () => import('../views/relatorios-score.vue')
   },
-  {
-    path: '/relatorios-score-regiao',
-    name: 'Score Região',
-    meta: { title: 'Score Região' },
-    component: () => import('../views/relatorios-score-regiao.vue')
-  },
 ]
 
 const router = new VueRouter({
