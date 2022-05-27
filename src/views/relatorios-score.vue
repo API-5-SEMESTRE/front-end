@@ -9,7 +9,7 @@
                 <v-col>
                   <v-row class="pa-4">
                     <v-card class="pa-3 mx-auto" color="#C0C0C0">
-                      <v-card class="pt-2 pb-2" width="800">
+                      <v-card class="pt-2 pb-2" width="900">
                         <v-row>
                           <v-col>
                             <h1 class="text-center text-color">
@@ -24,9 +24,10 @@
                                 ref="form"
                                 v-model="valid"
                                 lazy-validation
+                                @submit="gerarGraficoScore(grafico1)"
                               >
-                                <v-row no-gutters>
-                                  <v-col class="mx-auto" cols="2">
+                                <v-row>
+                                  <v-col class="mx-auto" cols="3">
                                     <v-select
                                       :items="grafico1_regiao"
                                       label="Região*"
@@ -41,7 +42,7 @@
                                       ]"
                                     ></v-select>
                                   </v-col>
-                                  <v-col class="mx-auto" cols="2">
+                                  <v-col class="mx-auto" cols="3">
                                     <v-select
                                       :items="grafico1_origem"
                                       label="Origem"
@@ -53,7 +54,7 @@
                                       background-color="#e0e1dd"
                                     ></v-select>
                                   </v-col>
-                                  <v-col class="mx-auto" cols="6">
+                                  <v-col class="mx-auto" cols="5">
                                     <v-text-field
                                       label="CNAE"
                                       v-model="grafico1.cnae"
@@ -112,7 +113,7 @@
                                   <v-btn
                                     color="primary"
                                     class="mr-4 mx-auto"
-                                    @click="gerarGraficoScore(grafico1)"
+                                    @click="validate"
                                     id="botao-enviar"
                                   >
                                     Gerar Gráfico
@@ -193,6 +194,7 @@ import Axios from "axios";
 export default {
   components: { GraficoScoreOrigemLine },
   data: () => ({
+    valid: true,
     paginas: 0,
     pagina: 1,
     pagination: { rowsPerPage: 0, totalItems: 0, page: 1 },
@@ -404,6 +406,9 @@ export default {
             );
           });
       }
+    },
+    validate() {
+      this.$refs.form.validate();
     },
   },
 };

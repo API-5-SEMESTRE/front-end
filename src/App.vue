@@ -3,7 +3,6 @@
     <!-- MENU DESKTOP -->
     <v-app-bar hide-on-scroll app color="#E7ECEF" dark height="80px">
       <v-img
-        alt="Logo Top Motors Auto"
         class="shrink mt-1 hidden-sm-and-down"
         contain
         src="@/assets/sas.png"
