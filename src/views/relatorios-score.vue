@@ -24,7 +24,6 @@
                                 ref="form"
                                 v-model="valid"
                                 lazy-validation
-                                @submit="gerarGraficoScore(grafico1)"
                               >
                                 <v-row>
                                   <v-col class="mx-auto" cols="3">
@@ -113,7 +112,7 @@
                                   <v-btn
                                     color="primary"
                                     class="mr-4 mx-auto"
-                                    @click="validate"
+                                    @click="validate(grafico1)"
                                     id="botao-enviar"
                                   >
                                     Gerar Gráfico
@@ -341,6 +340,11 @@ export default {
       this.pageUpdateFunction(this.pagina, true);
     },
 
+    validate(grafico1) {
+      this.$refs.form.validate();
+      this.gerarGraficoScore(grafico1);
+    },
+
     gerarGraficoScore(grafico1) {
       if (grafico1.ordenacao == "Decrescente") {
         Axios({
@@ -406,9 +410,6 @@ export default {
             );
           });
       }
-    },
-    validate() {
-      this.$refs.form.validate();
     },
   },
 };
