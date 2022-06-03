@@ -331,7 +331,8 @@ export default {
     pageUpdateFunction(newPage, back) {
       if (this.grafico1.ordenacao == "Decrescente") {
         Axios({
-          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
+          // url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
+          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-filtro/${this.grafico1.regiao}/${this.grafico1.origem}/${this.grafico1.cnae}/${this.grafico1.estado}/${newPage}/${this.grafico1.Quantidade_itens}/0`,
           method: "GET",
         })
           .then((response) => {
@@ -365,7 +366,8 @@ export default {
           });
       } else {
         Axios({
-          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
+          // url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-origem/${this.grafico1.origem}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
+          url: `https://score-analysis-system-back.herokuapp.com/empresa/pesquisar-score-por-filtro/${this.grafico1.regiao}/${this.grafico1.origem}/${this.grafico1.cnae}/${this.grafico1.estado}/${newPage}/${this.grafico1.Quantidade_itens}/1`,
           method: "GET",
         })
           .then((response) => {
