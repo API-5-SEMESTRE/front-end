@@ -157,6 +157,66 @@
                       sort-by="calories"
                       class="elevation-1"
                     >
+                      <template v-slot:top>
+                        <v-toolbar flat>
+                          <v-dialog v-model="dialog" max-width="540px">
+                            <v-card>
+                              <v-card-title>
+                                <span class="text-h5 text-color"
+                                  >CADASTRAR CARTEIRA/VENDEDOR</span
+                                >
+                              </v-card-title>
+                              <v-card-text>
+                                <v-container>
+                                  <v-row>
+                                    <v-col>
+                                      <div class="pt-3">
+                                        <span
+                                          class="text-color"
+                                          style="font-size: 18px"
+                                          >Usuário</span
+                                        >
+                                        <v-text-field
+                                          label="ID Usuário"
+                                          v-model="carteira.id"
+                                          single-line
+                                          solo
+                                          required
+                                          dense
+                                          background-color="#e0e1dd"
+                                        ></v-text-field>
+                                      </div>
+                                    </v-col>
+                                  </v-row>
+                                </v-container>
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  color="blue darken-1"
+                                  text
+                                  @click="close"
+                                >
+                                  Cancelar
+                                </v-btn>
+                                <v-btn
+                                  color="blue darken-1"
+                                  text
+                                  @click="cadastrar_carteira(carteira)"
+                                >
+                                  Cadastrar
+                                </v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                        </v-toolbar>
+                      </template>
+                      <template v-slot:[`item.actions`]="{ item }">
+                        <v-icon class="mr-2" @click="adicionar_vendedor(item)">
+                          mdi-plus-circle
+                        </v-icon>
+                      </template>
                     </v-data-table>
                     <div
                       style="
@@ -189,10 +249,12 @@
 import Swal from "sweetalert2";
 import GraficoScoreOrigemLine from "../components/GraficoScoreOrigemLine.vue";
 import Axios from "axios";
+import Usuario from "../services/usuario";
 
 export default {
   components: { GraficoScoreOrigemLine },
   data: () => ({
+    dialog: false,
     valid: true,
     paginas: 0,
     pagina: 1,
@@ -253,9 +315,18 @@ export default {
       { text: "Total Consumo", value: "totalConsumo" },
       { text: "Média Score", value: "mediaScore" },
       { text: "Total Score", value: "totalScore" },
+      { text: "Ações", value: "actions", sortable: false },
     ],
+    carteira: {
+      id: "",
+      cnpj: "",
+    },
   }),
-
+  // watch: {
+  //   dialog(val) {
+  //     val || this.closeDelete();
+  //   },
+  // },
   methods: {
     pageUpdateFunction(newPage, back) {
       if (this.grafico1.ordenacao == "Decrescente") {
@@ -408,6 +479,60 @@ export default {
             );
           });
       }
+    },
+    // Método de cadastro de usuario
+    cadastrar_carteira() {
+      Usuario.listar_carteira(this.carteira).then((resposta_lista_carteira) => {
+        this.lista_de_carteira_usuario = resposta_lista_carteira.data.vendedor;
+        console.log(this.lista_de_carteira_usuario.tipoAcesso);
+        if (this.lista_de_carteira_usuario.tipoAcesso === "VENDEDOR") {
+          Usuario.salvar_carteira(this.carteira)
+            .then((resposta_cadastro_carteira) => {
+              this.usuario = {};
+              Swal.fire(
+                "Sucesso",
+                "Carteira cadastrado com sucesso!!!",
+                "success"
+              );
+              this.exibir_usuario();
+              resposta_cadastro_carteira;
+            })
+            .catch((e) => {
+              Swal.fire(
+                "Oops...",
+                "Erro ao cadastrar a carteira! - Erro: " +
+                  e.response.data.error,
+                "error"
+              );
+            });
+        } else {
+          Swal.fire(
+            "Oops...",
+            "O usuário informado não é um VENDEDOR!",
+            "error"
+          );
+        }
+      });
+      this.close();
+    },
+    // Método que vai recuparar os dados da tabela e armazenar no objeto carteira
+    adicionar_vendedor(carteira) {
+      this.editedIndex = this.data_grafico1.indexOf(carteira);
+      this.carteira = Object.assign({}, carteira);
+      console.log(this.carteira);
+      this.dialog = true;
+    },
+    // Método que vai fechar o modal "dialog"
+    closeDelete() {
+      this.dialog = false;
+    },
+    close() {
+      this.dialog = false;
+      this.dialogCadastrar = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
   },
 };
