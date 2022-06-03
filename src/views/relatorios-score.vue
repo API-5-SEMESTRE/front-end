@@ -129,7 +129,7 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <GraficoScoreOrigemLine
+                  <GraficoScoreOrigem
                     :lista_cnpj="this.lista_cnpj_grafico1"
                     :lista_score="this.lista_score_grafico1"
                   />
@@ -247,12 +247,12 @@
 
 <script>
 import Swal from "sweetalert2";
-import GraficoScoreOrigemLine from "../components/GraficoScoreOrigemLine.vue";
+import GraficoScoreOrigem from "../components/GraficoScoreOrigem.vue";
 import Axios from "axios";
 import Usuario from "../services/usuario";
 
 export default {
-  components: { GraficoScoreOrigemLine },
+  components: { GraficoScoreOrigem },
   data: () => ({
     dialog: false,
     valid: true,
