@@ -137,106 +137,123 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <v-card>
-                    <v-card-title>
-                      <v-col cols="5" class="mx-auto">
-                        <v-text-field
-                          v-model="search"
-                          append-icon="mdi-magnify"
-                          label="Procurar"
-                          single-line
-                          hide-details
-                        ></v-text-field>
-                      </v-col>
-                    </v-card-title>
-                    <v-data-table
-                      :headers="headersGrafico1"
-                      :items="data_grafico1"
-                      :search="search"
-                      :pagination.sync="pagination"
-                      sort-by="calories"
-                      class="elevation-1"
-                    >
-                      <template v-slot:top>
-                        <v-toolbar flat>
-                          <v-dialog v-model="dialog" max-width="540px">
-                            <v-card>
-                              <v-card-title>
-                                <span class="text-h5 text-color"
-                                  >CADASTRAR CARTEIRA/VENDEDOR</span
-                                >
-                              </v-card-title>
-                              <v-card-text>
-                                <v-container>
-                                  <v-row>
-                                    <v-col>
-                                      <div class="pt-3">
-                                        <span
-                                          class="text-color"
-                                          style="font-size: 18px"
-                                          >Usuário</span
-                                        >
-                                        <v-text-field
-                                          label="ID Usuário"
-                                          v-model="carteira.id"
-                                          single-line
-                                          solo
-                                          required
-                                          dense
-                                          background-color="#e0e1dd"
-                                        ></v-text-field>
-                                      </div>
-                                    </v-col>
-                                  </v-row>
-                                </v-container>
-                              </v-card-text>
+                  <v-card class="pa-3 mx-auto" color="#C0C0C0">
+                    <v-card>
+                      <v-card-title>
+                        <v-col cols="5" class="mx-auto">
+                          <v-text-field
+                            v-model="search"
+                            append-icon="mdi-magnify"
+                            label="Procurar"
+                            single-line
+                            hide-details
+                          ></v-text-field>
+                        </v-col>
+                      </v-card-title>
+                      <v-data-table
+                        :headers="headersGrafico1"
+                        :items="data_grafico1"
+                        :search="search"
+                        :pagination.sync="pagination"
+                        sort-by="calories"
+                        class="elevation-1"
+                      >
+                        <template v-slot:top>
+                          <v-toolbar flat>
+                            <v-dialog v-model="dialog" max-width="540px">
+                              <v-card>
+                                <v-card-title>
+                                  <span class="text-h5 text-color"
+                                    >CADASTRAR CARTEIRA/VENDEDOR</span
+                                  >
+                                </v-card-title>
+                                <v-card-text>
+                                  <v-container>
+                                    <v-row>
+                                      <v-col>
+                                        <div class="pt-3">
+                                          <span
+                                            class="text-color"
+                                            style="font-size: 18px"
+                                            >Usuário</span
+                                          >
+                                          <v-text-field
+                                            label="ID Usuário"
+                                            v-model="carteira.id"
+                                            single-line
+                                            solo
+                                            required
+                                            dense
+                                            background-color="#e0e1dd"
+                                          ></v-text-field>
+                                        </div>
+                                      </v-col>
+                                    </v-row>
+                                  </v-container>
+                                </v-card-text>
 
-                              <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                  color="blue darken-1"
-                                  text
-                                  @click="close"
-                                >
-                                  Cancelar
-                                </v-btn>
-                                <v-btn
-                                  color="blue darken-1"
-                                  text
-                                  @click="cadastrar_carteira(carteira)"
-                                >
-                                  Cadastrar
-                                </v-btn>
-                              </v-card-actions>
-                            </v-card>
-                          </v-dialog>
-                        </v-toolbar>
-                      </template>
-                      <template v-slot:[`item.actions`]="{ item }">
-                        <v-icon class="mr-2" @click="adicionar_vendedor(item)">
-                          mdi-plus-circle
-                        </v-icon>
-                      </template>
-                    </v-data-table>
-                    <div
-                      style="
-                        display: flex;
-                        width: 50%;
-                        justify-content: center;
-                        margin: auto;
-                      "
-                    >
-                      <v-pagination
-                        style="width: 50%"
-                        v-model="pagination.page"
-                        :length="paginas"
-                        @next="nextPage"
-                        @previous="previousPage"
-                      ></v-pagination>
-                    </div>
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn
+                                    color="blue darken-1"
+                                    text
+                                    @click="close"
+                                  >
+                                    Cancelar
+                                  </v-btn>
+                                  <v-btn
+                                    color="blue darken-1"
+                                    text
+                                    @click="cadastrar_carteira(carteira)"
+                                  >
+                                    Cadastrar
+                                  </v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </v-toolbar>
+                        </template>
+                        <template v-slot:[`item.actions`]="{ item }">
+                          <v-icon
+                            class="mr-2"
+                            @click="adicionar_vendedor(item)"
+                          >
+                            mdi-plus-circle
+                          </v-icon>
+                          <v-icon
+                            class="mr-2"
+                            @click="gerar_grafico_cnpj(item)"
+                          >
+                            mdi-chart-bar
+                          </v-icon>
+                        </template>
+                      </v-data-table>
+                      <div
+                        style="
+                          display: flex;
+                          width: 50%;
+                          justify-content: center;
+                          margin: auto;
+                        "
+                      >
+                        <v-pagination
+                          style="width: 50%"
+                          v-model="pagination.page"
+                          :length="paginas"
+                          @next="nextPage"
+                          @previous="previousPage"
+                        ></v-pagination>
+                      </div>
+                    </v-card>
                   </v-card>
                 </v-col>
               </v-row>
+            </div>
+            <div class="pt-10">
+              <GraficoConsumo1Cnpj
+                :lista_consumo="this.lista_quantidade_consumo"
+                :lista_mes="this.lista_mes_referencia"
+              />
             </div>
           </v-flex>
         </v-layout>
@@ -248,12 +265,16 @@
 <script>
 import Swal from "sweetalert2";
 import GraficoScoreOrigem from "../components/GraficoScoreOrigem.vue";
+import GraficoConsumo1Cnpj from "../components/GraficoConsumo1Cnpj.vue";
 import Axios from "axios";
 import Usuario from "../services/usuario";
 
 export default {
-  components: { GraficoScoreOrigem },
+  components: { GraficoScoreOrigem, GraficoConsumo1Cnpj },
   data: () => ({
+    // Variaveis do grafico de Consumo VS Empresa
+    lista_quantidade_consumo: [],
+    lista_mes_referencia: [],
     dialog: false,
     valid: true,
     paginas: 0,
@@ -322,11 +343,6 @@ export default {
       cnpj: "",
     },
   }),
-  // watch: {
-  //   dialog(val) {
-  //     val || this.closeDelete();
-  //   },
-  // },
   methods: {
     pageUpdateFunction(newPage, back) {
       if (this.grafico1.ordenacao == "Decrescente") {
@@ -529,6 +545,38 @@ export default {
       });
       this.close();
     },
+    gerarGraficoConsumoVsCnpjFront(consumo1) {
+      Axios({
+        url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo1.cnpj}`,
+        method: "GET",
+      }).then((response) => {
+        this.lista_quantidade_consumo.splice(
+          0,
+          this.lista_quantidade_consumo.length
+        );
+        this.lista_mes_referencia.splice(0, this.lista_mes_referencia.length);
+        response.data.forEach((item) => {
+          this.lista_quantidade_consumo.push(item.quantidadeConsumo);
+        });
+        console.log(this.lista_quantidade_consumo);
+
+        response.data.forEach((item) => {
+          function adicionaZero(numero) {
+            if (numero <= 9) return "0" + numero;
+            else return numero;
+          }
+          let data = new Date(item.mesReferencia);
+          let dataFormatada =
+            adicionaZero(data.getMonth() + 1).toString() +
+            "/" +
+            data.getFullYear();
+          this.lista_mes_referencia.push(dataFormatada);
+        });
+        console.log(this.lista_mes_referencia);
+
+        this.loaded = true;
+      });
+    },
     // Método que vai recuparar os dados da tabela e armazenar no objeto carteira
     adicionar_vendedor(carteira) {
       this.editedIndex = this.data_grafico1.indexOf(carteira);
@@ -536,13 +584,14 @@ export default {
       console.log(this.carteira);
       this.dialog = true;
     },
-    // Método que vai fechar o modal "dialog"
-    closeDelete() {
-      this.dialog = false;
+    gerar_grafico_cnpj(carteira) {
+      this.editedIndex = this.data_grafico1.indexOf(carteira);
+      this.carteira = Object.assign({}, carteira);
+      console.log(this.carteira);
+      this.gerarGraficoConsumoVsCnpjFront(carteira);
     },
     close() {
       this.dialog = false;
-      this.dialogCadastrar = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
