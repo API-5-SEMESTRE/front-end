@@ -536,6 +536,11 @@ export default {
         method: "GET",
       })
         .then((response) => {
+          this.lista_quantidade_consumo.splice(
+            0,
+            this.lista_quantidade_consumo.length
+          );
+          this.lista_mes_referencia.splice(0, this.lista_mes_referencia.length);
           response.data.forEach((item) => {
             this.lista_quantidade_consumo.push(item.quantidadeConsumo);
           });

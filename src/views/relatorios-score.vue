@@ -425,6 +425,12 @@ export default {
           method: "GET",
         })
           .then((response) => {
+            this.lista_cnpj_grafico1.splice(0, this.lista_cnpj_grafico1.length);
+            this.lista_score_grafico1.splice(
+              0,
+              this.lista_score_grafico1.length
+            );
+
             console.log(response);
             const test = response.data.content;
             this.data_grafico1 = test;
@@ -455,6 +461,12 @@ export default {
           method: "GET",
         })
           .then((response) => {
+            this.lista_cnpj_grafico1.splice(0, this.lista_cnpj_grafico1.length);
+            this.lista_score_grafico1.splice(
+              0,
+              this.lista_score_grafico1.length
+            );
+
             console.log(response);
             const test = response.data.content;
             this.data_grafico1 = test;

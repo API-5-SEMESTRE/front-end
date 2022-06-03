@@ -235,6 +235,11 @@ export default {
         url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo1.cnpj}`,
         method: "GET",
       }).then((response) => {
+        this.lista_quantidade_consumo.splice(
+          0,
+          this.lista_quantidade_consumo.length
+        );
+        this.lista_mes_referencia.splice(0, this.lista_mes_referencia.length);
         response.data.forEach((item) => {
           this.lista_quantidade_consumo.push(item.quantidadeConsumo);
         });
@@ -266,6 +271,11 @@ export default {
         url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo2.cnpj1}`,
         method: "GET",
       }).then((response) => {
+        this.lista_quantidade_consumo1.splice(
+          0,
+          this.lista_quantidade_consumo1.length
+        );
+        this.lista_mes_referencia1.splice(0, this.lista_mes_referencia1.length);
         response.data.forEach((item) => {
           this.lista_quantidade_consumo1.push(item.quantidadeConsumo);
         });
@@ -293,6 +303,11 @@ export default {
         url: `https://score-analysis-system-back.herokuapp.com/consumo/lista-consumo-empresa/${consumo2.cnpj2}`,
         method: "GET",
       }).then((response) => {
+        this.lista_quantidade_consumo2.splice(
+          0,
+          this.lista_quantidade_consumo2.length
+        );
+        this.lista_mes_referencia2.splice(0, this.lista_mes_referencia2.length);
         response.data.forEach((item) => {
           this.lista_quantidade_consumo2.push(item.quantidadeConsumo);
         });
